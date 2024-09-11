@@ -1,0 +1,66 @@
+body {
+  padding: 25px;
+  margin: 0;
+}
+
+header {
+  margin-bottom: 20px;
+}
+
+header img {
+  max-width: 100%;
+  height: auto;
+}
+
+header a, header button {
+  margin-left: 15px;
+  text-decoration: none;
+  color: #000;
+}
+
+header a:hover{
+  text-decoration: none; /* Remove o sublinhado ao passar o mouse */
+  color: black;
+  border-bottom: 2px solid black; /* Adiciona uma borda inferior ao passar o mouse */
+}
+
+.container-home {
+  position: relative; /* Necessário para que o container-centro possa ser posicionado em relação a ele */
+  height: 600px; /* Ajuste conforme necessário */
+}
+
+.container-centro {
+  position: absolute; /* Permite posicionar o container-centro sobre o container-home */
+  top: 50%; /* Centraliza verticalmente */
+  left: 50%; /* Centraliza horizontalmente */
+  transform: translate(-50%, -50%); /* Ajusta o elemento para que ele fique centralizado */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%; /* Ajusta a largura conforme necessário */
+  height: 60%; /* Ajusta a altura conforme necessário */
+  background-color: rgba(255, 255, 255, 0.8); /* Background semi-transparente para destacar o Carousel */
+  border-radius: 10px; /* Opcional: para bordas arredondadas */
+  padding: 20px; /* Opcional: para espaçamento interno */
+}
+
+.carousel-item {
+  height: 100%; /* Garante que o item do Carousel ocupe toda a altura do contêiner */
+}
+
+.carousel-item img {
+  width: 100%; /* Ajusta a largura da imagem para ocupar todo o contêiner */
+  height: auto; /* Mantém a proporção da imagem */
+  max-width: none; /* Remove o limite máximo de largura para que a largura do contêiner controle a largura da imagem */
+  max-height: 500px; /* Ajusta a altura máxima da imagem para não ultrapassar o contêiner */
+  object-fit: cover; /* Faz com que a imagem se ajuste ao tamanho do contêiner */
+}
+
+footer {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.btn{
+  border-radius: 20px !important;
+}
