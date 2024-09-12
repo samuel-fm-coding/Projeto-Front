@@ -64,3 +64,9 @@ footer {
 .btn{
   border-radius: 20px !important;
 }
+
+.center{
+  display: flex;
+  justify-content: center;
+}
+
