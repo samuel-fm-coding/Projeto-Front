@@ -21,7 +21,7 @@ function returnHeader(){
         <a href="#">Anunciar</a>
         <a href="#">A LocaHouse</a>
         <a href="cadastro.html" class="btn btn-primary" id="btn-criar-conta">Criar conta</a>
-        <button type="button" class="btn btn-outline-primary" id="btn-login"><i class="bi bi-person-circle"></i> Entrar</button>
+        <a href="login.html" class="btn btn-outline-primary" id="btn-login"><i class="bi bi-person-circle"></i> Entrar</button>
       </div>
     </div>`;
     
@@ -40,13 +40,13 @@ function returnModalLogin(){
                          </button>
                        </div>
                        <div class="modal-body">
-                         <div class="col-12">
-                            <label class="control-label" for="usuario-login">Usuário</label>
-                            <input type="text" class="form-control" id="usuario-login">
+                         <div class="form-group">
+                            <label for="nomeCadastro">CPF</label>
+                            <input type="text" class="form-control" id="cpfLogin" placeholder="Digite o seu CPF">
                          </div>
-                         <div class="col-12">
-                            <label class="control-label" for="senha-login">Senha</label>
-                            <input type="password" class="form-control" id="senha-login">
+                         <div class="form-group">
+                            <label for="senhaCadastro">Senha</label>
+                            <input type="password" class="form-control" id="senhaCadastro" placeholder="Insira a senha">
                          </div>
                        </div>
                        <div class="modal-footer">
