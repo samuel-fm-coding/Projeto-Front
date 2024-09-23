@@ -24,6 +24,10 @@ header a:hover{
   border-bottom: 2px solid black; /* Adiciona uma borda inferior ao passar o mouse */
 }
 
+.principal{
+  margin-top: 5%;
+}
+
 .container-home {
   position: relative; /* Necessário para que o container-centro possa ser posicionado em relação a ele */
   height: 600px; /* Ajuste conforme necessário */
@@ -56,6 +60,20 @@ header a:hover{
   object-fit: cover; /* Faz com que a imagem se ajuste ao tamanho do contêiner */
 }
 
+.card {
+  max-width: 250px;
+  max-height: 300px;
+}
+.card-img-top {
+  max-height: 200px;
+  object-fit: cover;
+}
+.card-body {
+  max-height: 100px;
+  overflow: hidden;
+}
+
+
 footer {
   margin-top: 20px;
   text-align: center;
@@ -83,7 +101,7 @@ h6 {
 
 .item-box {
   border: 1px solid #d3d3d3;
-  padding: 15px;
+  padding: 5px;
   margin-bottom: 10px;
   position: relative;
 }
