@@ -64,7 +64,14 @@ header a:hover{
 .card {
   max-width: 250px;
   max-height: 300px;
+  transition: transform 50ms ease-out;
 }
+
+.card:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
 .card-img-top {
   max-height: 200px;
   object-fit: cover;
@@ -129,4 +136,26 @@ h6 {
 
 .dropdown-menu a:hover {
   background-color: #f0f0f0;
+}
+
+.btn-back-green{
+  background-color: #678a73 !important; 
+  color: #e4e8e2 !important;
+}
+
+.btn-back-green:hover{
+  background-color: #678a73e0 !important; 
+  color: #e4e8e2 !important;
+  border: 0;
+}
+
+.btn-outline-lightgreen{
+  background-color: #e4e8e2 !important;
+  color: #678a73 !important; 
+  border: 1px solid #678a73 !important; 
+}
+
+.btn-outline-lightgreen:hover{
+  background-color: #678a73 !important;
+  color: #e4e8e2 !important;
 }
