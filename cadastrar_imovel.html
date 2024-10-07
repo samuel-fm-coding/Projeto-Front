@@ -74,11 +74,33 @@
                     <input type="text" class="form-control" id="TituloImovel">
                 </div>
                 <div class="form-group d-flex row">
-                    <div class="col-8">
+                    <div class="col-5">
                         <label for="CepImovel">CEP</label>
-                        <input type="text" class="form-control" id="CepImovel" placeholder="_____-___">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="CepImovel" placeholder="_____-___">
+                            <button class="btn btn-outline-lightgreen ml-2" type="button" id="btn-consultar-imovel">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
                     </div>
+
                     <div class="col-4">
+                        <label for="CidadeImovel">Cidade</label>
+                        <input type="text" class="form-control" id="CidadeImovel" disabled>
+                    </div>
+                    
+                    <div class="col-3">
+                        <label for="UFImovel">Estado</label>
+                        <input type="text" class="form-control" id="UFImovel" disabled>
+                    </div>
+                </div>
+
+                <div class="form-group d-flex row">
+                    <div class="col-9">
+                        <label for="EnderecoImovel">Endereço</label>
+                        <input type="text" class="form-control" id="EnderecoImovel" disabled>
+                    </div>
+                    <div class="col-3">
                         <label for="NumeroImovel">Número</label>
                         <input type="text" class="form-control" id="NumeroImovel">
                     </div>
@@ -130,7 +152,7 @@
 
     <!-- MODAL PARA EXIBIR IMG DE PRÉVIA -->
     <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="imageModalLabel">Imagem</h5>
@@ -139,7 +161,9 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <img id="modalImage" src="" class="img-fluid" alt="Imagem ampliada">
+                    <div class="center">
+                        <img id="modalImage" src="" class="img-fluid" alt="Imagem ampliada" style="width: -webkit-fill-available;">
+                    </div>
                 </div>
             </div>
         </div>
@@ -192,34 +216,20 @@
                 $('#imageModal').modal('show'); // Abre o modal
             });
 
-            $("#CepImovel").on('blur', function(){
-                const cep = $(this).val().replace("-", ""); // Remove o hífen
-                if (cep.length !== 8) {
-                    alert("Por favor, digite um CEP válido.");
-                    return;
-                }
-                viaCEP(cep);
+            $("#btn-consultar-imovel").click(function(){
+                var cep = $("#CepImovel").val().replace("-", "");
+                viaCEP(cep, function(response) {
+                    if (response) {
+                        $("#CidadeImovel").val(response.localidade);
+                        $("#UFImovel").val(response.uf);
+                        $("#EnderecoImovel").val(response.logradouro);
+                    }
+                });
             });
+
         });
 
-        function viaCEP(cep) {
-            $.ajax({
-                url: `https://viacep.com.br/ws/${cep}/json/`,
-                type: "GET",
-                dataType: "json",
-                success: function(data) {
-                    if (data.erro) {
-                        alert("CEP não encontrado.");
-                    } else {
-                        $("#TituloImovel").val(data.logradouro);
-                        // Aqui você pode preencher outros campos, como bairro, cidade e estado
-                    }
-                },
-                error: function() {
-                    alert("Erro ao consultar o CEP.");
-                }
-            });
-        }
+    
     </script>
 </body>
 

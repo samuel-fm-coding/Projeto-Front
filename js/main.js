@@ -24,3 +24,24 @@ function returnHeader(){
     $('header').html(html);
 }
 
+function viaCEP(cep, callback) {
+  $.ajax({
+      url: `https://viacep.com.br/ws/${cep}/json/`,
+      method: 'GET',
+      dataType: 'json',
+      success: function(data) {
+          if (data.erro) {
+              alert('CEP não encontrado.');
+              callback(null); // Chama o callback com null em caso de erro
+          } else {
+              callback(data); // Chama o callback com os dados recebidos
+          }
+      },
+      error: function() {
+          alert('Erro ao consultar o CEP.');
+          callback(null); // Chama o callback com null em caso de erro
+      }
+  });
+}
+
+
