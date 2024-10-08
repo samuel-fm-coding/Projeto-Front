@@ -179,3 +179,18 @@ h6 {
 .none{
   display: none;
 }
+
+.fieldset-gray-pd{
+  border: 1px solid #9f9f9f;
+  border-radius: 3px;
+  padding: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.legend-field{
+  width: fit-content;
+  padding: 5px;
+  font-size: 16px;
+  font-weight: 500;
+}
