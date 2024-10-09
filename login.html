@@ -7,23 +7,22 @@
     <title>LocaHouse</title>
     <link href="css/styles.css" rel="stylesheet" type="text/css" />
     <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
-        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
 
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
     <!-- Bootstrap JS -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
     <header></header>
-    <div class="">
-        <div class="container-home col-xs-12 col-sm-8 col-md-8 col-lg-6 col-xl-4 offset-sm-2 offset-md-2 offset-lg-3 offset-xl-4">
-            <div class="center">
+    <div class="container">
+        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4 col-lg-offset-4">
+            <div class="text-center">
                 <h3>Fazer login</h3>
             </div>
             <div class="form-group">
@@ -36,24 +35,21 @@
                 <input type="password" class="form-control" id="senhaLogin" placeholder="Insira a senha">
             </div>
             
-            <div class="center">
+            <div class="text-center">
                 <p id="msg-retorno" class="msg-erro none"></p>
             </div>
             
-            
-            <div class="center">
+            <div class="text-center">
                 <button class="btn btn-back-green" id="btn-login">Fazer login</button>
             </div>      
             <br />
-            <div class="form-group center">
-                <small>Ainda não possui uma conta ?</small>
+            <div class="form-group text-center">
+                <small>Ainda não possui uma conta?</small>
                 <a href="cadastro.html" style="font-size: 14px; margin-left: 5px;">Cadastrar-se</a>
             </div>
         </div>
     </div>
-    <footer>
-
-    </footer>
+    <footer></footer>
 
     <script src="js/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
@@ -75,7 +71,7 @@
             }
             else{
                 retorno.text('Agiliza a API bielll').removeClass('none');
-                return false;
+                return false; // Para teste, remova em produção
                 $.ajax({
                     url: 'endpoint do biel',
                     type: 'POST',

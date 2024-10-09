@@ -6,23 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LocaHouse</title>
     <link href="css/styles.css" rel="stylesheet" type="text/css" />
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
 <style>
-    .carousel-control-prev {
+    .carousel-control.left {
         left: -100px !important;
     }
 
-    .carousel-control-next {
+    .carousel-control.right {
         right: -100px !important;
     }
 
-    .carousel-control-prev-icon,
-    .carousel-control-next-icon {
+    .carousel-control .icon-prev,
+    .carousel-control .icon-next {
         background-color: #678a73;
         border-radius: 50%;
     }
@@ -31,132 +31,133 @@
     input[type=number]::-webkit-outer-spin-button {
         opacity: 1;
     }
-
 </style>
 
 <body>
     <header></header>
 
-    <div class="container col-12 mt-2">
-        <div class="col-md-10 offset-md-1">
+    <div class="container">
+        <div class="col-md-10 col-md-offset-1 mt-2">
             <div class="text-center mb-4">
                 <h3>Cadastrar imóvel</h3>
             </div>
-            <form id="cadastrar-imovel">
-
+            <form id="form-cadastrar-imovel">
                 <!-- Carousel -->
                 <div id="carouselPreview" class="carousel slide mb-3" data-ride="carousel">
                     <div class="carousel-inner" id="preview"></div>
-                    <a class="carousel-control-prev" id="prev-carousel" href="#carouselPreview" role="button" data-slide="prev" style="display: none;">
+                    <a class="carousel-control left" id="prev-carousel" href="#carouselPreview" role="button" data-slide="prev" style="display: none;">
                         <i class="bi bi-chevron-left" aria-hidden="true" style="color: black; font-size: 30px;"></i>
                         <span class="sr-only">Anterior</span>
                     </a>
-                    <a class="carousel-control-next" id="next-carousel" href="#carouselPreview" role="button" data-slide="next" style="display: none;">
+                    <a class="carousel-control right" id="next-carousel" href="#carouselPreview" role="button" data-slide="next" style="display: none;">
                         <i class="bi bi-chevron-right" aria-hidden="true" style="color: black; font-size: 30px;"></i>
                         <span class="sr-only">Próximo</span>
                     </a>
                 </div>
-
+            
                 <div class="form-group">
                     <label for="imageInput">Selecionar Imagens (até 5)</label>
                     <input type="file" id="imageInput" name="images" accept="image/*" multiple required class="form-control-file">
                 </div>
-
+            
                 <div class="form-group">
-                    <label>Tipo do imóvel</label>
-                    <div class="d-flex row">
-                        <div class="form-check mx-3">
-                            <input class="form-check-input" type="radio" name="TipoImovel" id="Casa" checked>
+                    <label class="control-label">Tipo do imóvel</label> 
+                    <div class="d-flex"> 
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="TipoImovel" id="Casa" value="Casa" checked>
                             <label class="form-check-label" for="Casa">Casa</label>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="TipoImovel" id="Apartamento">
+                        <div class="form-check ml-10">
+                            <input class="form-check-input" type="radio" name="TipoImovel" id="Apartamento" value="Apartamento">
                             <label class="form-check-label" for="Apartamento">Apartamento</label>
                         </div>
-                    </div>
+                    </div>              
                 </div>
+            
                 <fieldset class="fieldset-gray-pd">
                     <legend class="legend-field">Informações</legend>
                     <div class="form-group">
                         <label for="TituloImovel">Título</label>
-                        <input type="text" class="form-control" id="TituloImovel">
+                        <input type="text" class="form-control" id="TituloImovel" name="TituloImovel" required>
                     </div>
                     
-                    <div class="form-group d-flex row">                      
-                        <div class="col-2">
+                    <div class="form-group row">                      
+                        <div class="col-xs-12 col-md-4 col-lg-2">
                             <label for="QuartosImovel">Quartos</label>
-                            <input type="number" class="form-control" id="QuartosImovel" min="0" max="10" onkeydown="return false;">
+                            <input type="number" class="form-control" id="QuartosImovel" name="QuartosImovel" min="0" max="10" onkeydown="return false;">
                         </div>
-                        <div class="col-2">
+                        <div class="col-xs-12 col-md-4 col-lg-2">
                             <label for="BanheirosImovel">Banheiros</label>
-                            <input type="number" class="form-control" id="BanheirosImovel" min="0" max="10" onkeydown="return false;">
+                            <input type="number" class="form-control" id="BanheirosImovel" name="BanheirosImovel" min="0" max="10" onkeydown="return false;">
                         </div>
-                        <div class="col-2">
+                        <div class="col-xs-12 col-md-4 col-lg-2">
                             <label for="SuitesImovel">Suítes</label>
-                            <input type="number" class="form-control" id="SuitesImovel" min="0" max="10" onkeydown="return false;">
+                            <input type="number" class="form-control" id="SuitesImovel" name="SuitesImovel" min="0" max="10" onkeydown="return false;">
                         </div>
-                        <div class="col-6 d-flex center" style="align-items: center;">
-                            <small>Dica: Utilize as setas para alterar a quantidade de cômodos</small>
+                        <br />
+                        <div class="col-xs-12 col-md-6">
+                            <small><strong>Dica:</strong> utilize as setas para alterar a quantidade de cômodos</small>
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label for="DescricaoImovel">Descrição</label>
-                        <textarea class="form-control" id="DescricaoImovel" rows="4" maxlength="500" placeholder="Dê mais detalhes sobre o imóvel"></textarea>
+                        <textarea class="form-control" id="DescricaoImovel" name="DescricaoImovel" rows="4" maxlength="500" placeholder="Dê mais detalhes sobre o imóvel"></textarea>
                     </div>
                 </fieldset>
                 <br />
-
+            
                 <fieldset class="fieldset-gray-pd">
                     <legend class="legend-field">Localização</legend>
-                    <div class="form-group d-flex row">
-                        <div class="col-5">
+                    <div class="form-group row">
+                        <div class="col-xs-5">
                             <label for="CepImovel">CEP</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="CepImovel" placeholder="_____-___">
-                                <button class="btn btn-outline-lightgreen ml-2" type="button" id="btn-consultar-imovel">
-                                    <i class="bi bi-search"></i>
-                                </button>
+                                <input type="text" class="form-control" id="CepImovel" name="CepImovel" placeholder="_____-___">
+                                <span class="input-group-btn ml-10">
+                                    <button class="btn btn-outline-lightgreen" type="button" id="btn-consultar-imovel">
+                                        <i class="bi bi-search"></i>
+                                    </button>
+                                </span>
                             </div>
                         </div>
-
-                        <div class="col-4">
+            
+                        <div class="col-xs-4">
                             <label for="CidadeImovel">Cidade</label>
-                            <input type="text" class="form-control" id="CidadeImovel" disabled>
+                            <input type="text" class="form-control" id="CidadeImovel" name="CidadeImovel" disabled>
                         </div>
                         
-                        <div class="col-3">
+                        <div class="col-xs-3">
                             <label for="UFImovel">Estado</label>
-                            <input type="text" class="form-control" id="UFImovel" disabled>
+                            <input type="text" class="form-control" id="UFImovel" name="UFImovel" disabled>
                         </div>
                     </div>
-
-                    <div class="form-group d-flex row">
-                        <div class="col-6">
+            
+                    <div class="form-group row">
+                        <div class="col-xs-6">
                             <label for="EnderecoImovel">Endereço</label>
-                            <input type="text" class="form-control" id="EnderecoImovel" disabled>
+                            <input type="text" class="form-control" id="EnderecoImovel" name="EnderecoImovel" disabled>
                         </div>
-                        <div class="col-6">
+                        <div class="col-xs-6">
                             <label for="BairroImovel">Bairro</label>
-                            <input type="text" class="form-control" id="BairroImovel" disabled>
+                            <input type="text" class="form-control" id="BairroImovel" name="BairroImovel" disabled>
                         </div>
-                        
                     </div>
                     
-                    <div class="form-group d-flex row">
-                        <div class="col-3">
+                    <div class="form-group row">
+                        <div class="col-xs-3">
                             <label for="NumeroImovel">Número</label>
-                            <input type="text" class="form-control" id="NumeroImovel">
+                            <input type="text" class="form-control" id="NumeroImovel" name="NumeroImovel">
                         </div>
                     </div>
                 </fieldset>
                 
                 <fieldset class="fieldset-gray-pd">
                     <legend class="legend-field">Contato</legend>
-                    <div class="form-group d-flex row">
-                        <div class="col-6">
+                    <div class="form-group row">
+                        <div class="col-xs-6">
                             <label for="TelefoneImovel">Telefone</label>
-                            <input type="text" class="form-control" id="TelefoneImovel" placeholder="(XX) XXXXX-XXXX">
+                            <input type="text" class="form-control" id="TelefoneImovel" name="TelefoneImovel" placeholder="(XX) XXXXX-XXXX">
                         </div>
                     </div>
                 </fieldset>
@@ -165,6 +166,7 @@
                     <button type="submit" class="btn btn-back-green" id="btn-cadastrar">Cadastrar</button>
                 </div>
             </form>
+            
         </div>
     </div>
 
@@ -180,7 +182,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="center">
-                        <img id="modalImage" src="" class="img-fluid" alt="Imagem ampliada" style="width: -webkit-fill-available;">
+                        <img id="modalImage" src="" class="img-responsive" alt="Imagem ampliada" style="width: -webkit-fill-available;">
                     </div>
                 </div>
             </div>
@@ -190,11 +192,9 @@
     <script src="js/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script>
-
         $(document).ready(function() {
             $("#CepImovel").mask('00000-000');
             $("#TelefoneImovel").mask('(00) 00000-0000');
-            //MASK PARA NUMERO RESIDENCIAL NO FORMATO (XXX ou X-XXX)
             $('#NumeroImovel').mask('0000', {
                 translation: {
                     '0': {pattern: /[0-9]/}
@@ -232,8 +232,8 @@
                     reader.onload = function(e) {
                         const isActive = (i === 0) ? 'active' : ''; // Apenas a primeira imagem será ativa
                         $('#preview').append(`
-                            <div class="carousel-item ${isActive}" data-image="${e.target.result}">
-                                <img src="${e.target.result}" class="d-block w-100" style="height: 400px; object-fit: cover;">
+                            <div class="item ${isActive}" data-image="${e.target.result}">
+                                <img src="${e.target.result}" class="img-responsive" style="height: 400px; object-fit: cover;">
                             </div>
                         `);
                     }
@@ -248,7 +248,7 @@
             });
 
             // Evento para abrir o modal com a imagem clicada
-            $('#preview').on('click', '.carousel-item', function() {
+            $('#preview').on('click', '.item', function() {
                 const imageSrc = $(this).data('image');
                 $('#modalImage').attr('src', imageSrc);
                 $('#imageModal').modal('show'); // Abre o modal
@@ -266,9 +266,26 @@
                 });
             });
 
-        });
+            $("#form-cadastrar-imovel").on('submit', function(e){
+                e.preventDefault();
+                
+                const formData = new FormData(this);
+                const dataObject = {};
 
-    
+                formData.forEach((value, key) => {
+                    if (dataObject[key]) {
+                        if (!Array.isArray(dataObject[key])) {
+                            dataObject[key] = [dataObject[key]];
+                        }
+                        dataObject[key].push(value); 
+                    } else {
+                        dataObject[key] = value;
+                    }
+                });
+
+                console.log(dataObject);
+            });
+        });
     </script>
 </body>
 
