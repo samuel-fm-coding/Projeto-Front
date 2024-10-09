@@ -25,23 +25,25 @@
             <div class="text-center">
                 <h3>Fazer login</h3>
             </div>
-            <div class="form-group">
-                <label for="cpfLogin">CPF</label>
-                <input type="text" class="form-control" id="cpfLogin" placeholder="Digite o seu CPF">
-            </div>
-            
-            <div class="form-group">
-                <label for="senhaLogin">Senha</label>
-                <input type="password" class="form-control" id="senhaLogin" placeholder="Insira a senha">
-            </div>
-            
-            <div class="text-center">
-                <p id="msg-retorno" class="msg-erro none"></p>
-            </div>
-            
-            <div class="text-center">
-                <button class="btn btn-back-green" id="btn-login">Fazer login</button>
-            </div>      
+            <form id="form-login">
+                <div class="form-group">
+                    <label for="cpfLogin">CPF</label>
+                    <input type="text" class="form-control" id="cpfLogin" name="cpf" placeholder="Digite o seu CPF">
+                </div>
+                
+                <div class="form-group">
+                    <label for="senhaLogin">Senha</label>
+                    <input type="password" class="form-control" id="senhaLogin" name="senha" placeholder="Insira a senha">
+                </div>
+                
+                <div class="text-center">
+                    <p id="msg-retorno" class="msg-erro none"></p>
+                </div>
+                
+                <div class="text-center">
+                    <button type="submit" class="btn btn-back-green" id="btn-login">Fazer login</button>
+                </div> 
+            </form>     
             <br />
             <div class="form-group text-center">
                 <small>Ainda não possui uma conta?</small>
@@ -56,7 +58,7 @@
     <script>
         $('#cpfLogin').mask('000.000.000-00');
 
-        $("#btn-login").off('click').on('click', function(){
+        /*$("#btn-login").off('click').on('click', function(){
             var cpf = $("#cpfLogin").val();
             var senha = $("#senhaLogin").val();
             var retorno = $("#msg-retorno");
@@ -70,21 +72,55 @@
                 return false;
             }
             else{
-                retorno.text('Agiliza a API bielll').removeClass('none');
-                return false; // Para teste, remova em produção
+                const 
                 $.ajax({
-                    url: 'endpoint do biel',
+                    url: 'http://localhost:8080/api/v1/usuarios/login', 
                     type: 'POST',
-                    dataType: 'json',
-                    data:{
-                        //ENVIAR DADOS PARA API
+                    contentType: 'application/json',
+                    data: JSON.stringify(dataObject), 
+                    success: function(response) {
+                        
+                        alert('Login realizado com sucesso!');
+                        console.log(response);
                     },
-                    success: function(response){
-                        //OPERAÇÕES AO RECEBER RETORNO DA API
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        // Lógica em caso de erro
+                        alert('Erro ao cadastrar: ' + errorThrown);
+                        console.log(jqXHR.responseText); 
                     }
                 });
             }
-        });
+        });*/
+        $("#form-login").on('submit', function(e) {
+                e.preventDefault(); // Impede o envio padrão do formulário
+
+                // Coleta os dados do formulário
+                const formData = new FormData(this);
+                const dataObject = {};
+
+                // Transforma FormData em objeto
+                formData.forEach((value, key) => {
+                    dataObject[key] = value;
+                });
+                console.log(JSON.stringify(dataObject))
+                // Envia os dados para o servidor
+                $.ajax({
+                    url: 'http://localhost:8080/api/v1/usuarios/cadastrar', // Substitua pelo seu endpoint
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(dataObject), // Converte o objeto para JSON
+                    success: function(response) {
+                        // Lógica em caso de sucesso
+                        alert('Cadastro realizado com sucesso!');
+                        console.log(response); // Resposta do servidor
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        // Lógica em caso de erro
+                        alert('Erro ao cadastrar: ' + errorThrown);
+                        console.log(jqXHR.responseText); // Detalhes do erro
+                    }
+                });
+            });
     </script>
 </body>
 
