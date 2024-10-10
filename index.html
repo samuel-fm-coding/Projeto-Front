@@ -21,30 +21,46 @@
 <body>
     <header></header>
     
+    <div class="carousel">
+      <div class="slides">
+          <!-- Slide 1 -->
+          <div class="slide">
+              <img src="/img/familia.jpg" alt="familia">
+              <div class="caption">
+                  <h2>Para Você e Para Sua Família</h2>
+                  <p>Aconchego da forma que só o "lar doce lar" oferece!</p>
+              </div>
+          </div>
+
+          <!-- Slide 2 -->
+          <div class="slide">
+              <img src="/img/viagem.jpg" alt="viagem">
+              <div class="caption">
+                  <h2>Título 2</h2>
+                  <p>Subtítulo 2</p>
+              </div>
+          </div>
+
+          <!-- Slide 3 -->
+          <div class="slide">
+              <img src="/img/economia.jpg" alt="economia">
+              <div class="caption">
+                  <h2>Título 3</h2>
+                  <p>Subtítulo 3</p>
+              </div>
+          </div>
+      </div>
+
+      <!-- Setas de navegação -->
+      <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+      <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
     <footer></footer>
 
     <script src="js/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script>
-      // Função para abrir/fechar o menu suspenso
-      function toggleMenu(menuId) {
-        var menu = document.getElementById(menuId);
-        if (menu.style.display === "block") {
-          menu.style.display = "none";
-        } else {
-          menu.style.display = "block";
-        }
-      }
-
-      // Fechar o menu quando clicar fora
-      document.addEventListener("click", function (event) {
-        var dropdowns = document.querySelectorAll(".dropdown-menu");
-        dropdowns.forEach(function (dropdown) {
-          if (!dropdown.parentElement.contains(event.target)) {
-            dropdown.style.display = "none";
-          }
-        });
-      });
+      
     </script>
 </body>
 </html>
