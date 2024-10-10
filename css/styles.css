@@ -1,3 +1,7 @@
+*{
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif !important;
+}
+
 body {
   padding: 25px;
   margin: 0;
@@ -51,18 +55,6 @@ header a:hover{
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 10px; 
   padding: 20px; 
-}
-
-.carousel-item {
-  height: 100%; 
-}
-
-.carousel-item img {
-  width: 100%;
-  height: auto;
-  max-width: none; 
-  max-height: 500px; 
-  object-fit: cover;
 }
 
 .card {
@@ -205,4 +197,68 @@ h6 {
 
 .ml-10{
   margin-left: 10px;
+}
+
+.carousel {
+  position: relative;
+  max-width: 800px;
+  margin: auto;
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.slides {
+  display: flex;
+  overflow: hidden;
+}
+
+.slide {
+  min-width: 100%;
+  transition: transform 0.5s ease-in-out;
+  position: relative;
+}
+
+.caption {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.caption h2 {
+  margin: 0;
+}
+
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 24px;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 50%;
+  cursor: pointer;
+  transform: translateY(-50%);
+  display: none;
+}
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}
+
+.carousel:hover .prev, 
+.carousel:hover .next {
+  display: block;
 }
