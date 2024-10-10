@@ -105,7 +105,7 @@
                 console.log(JSON.stringify(dataObject))
                 // Envia os dados para o servidor
                 $.ajax({
-                    url: 'http://localhost:8080/api/v1/usuarios/cadastrar', // Substitua pelo seu endpoint
+                    url: 'http://localhost:8080/api/v1/usuarios/login', // Substitua pelo seu endpoint
                     type: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify(dataObject), // Converte o objeto para JSON
