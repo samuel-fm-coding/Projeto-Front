@@ -103,21 +103,21 @@
                     dataObject[key] = value;
                 });
                 console.log(JSON.stringify(dataObject))
-                // Envia os dados para o servidor
+                
                 $.ajax({
-                    url: 'http://localhost:8080/api/v1/usuarios/login', // Substitua pelo seu endpoint
+                    url: 'http://localhost:8080/api/v1/usuarios/login',
                     type: 'POST',
                     contentType: 'application/json',
-                    data: JSON.stringify(dataObject), // Converte o objeto para JSON
+                    data: JSON.stringify(dataObject), 
                     success: function(response) {
-                        // Lógica em caso de sucesso
-                        alert('Cadastro realizado com sucesso!');
-                        console.log(response); // Resposta do servidor
+                        
+                        alert('Login realizado com sucesso!');
+                        console.log(response); 
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
-                        // Lógica em caso de erro
-                        alert('Erro ao cadastrar: ' + errorThrown);
-                        console.log(jqXHR.responseText); // Detalhes do erro
+                        
+                        alert('Erro ao login: ' + errorThrown);
+                        console.log(jqXHR.responseText); 
                     }
                 });
             });
