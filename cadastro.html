@@ -67,10 +67,11 @@
             // Máscara para o telefone
             $("#telefoneCadastro").mask('(00) 00000-0000');
 
-            
+            // Evento de envio do formulário
             $("#cadastroForm").on('submit', function(e) {
-                e.preventDefault(); 
+                e.preventDefault(); // Impede o envio padrão do formulário
 
+                // Coleta os dados do formulário
                 const formData = new FormData(this);
                 const dataObject = {};
 
@@ -79,16 +80,24 @@
                     dataObject[key] = value;
                 });
                 console.log(JSON.stringify(dataObject))
-                
+                // Envia os dados para o servidor
                 $.ajax({
-                    url: 'http://localhost:8080/api/v1/usuarios/cadastrar', 
+                    url: 'http://localhost:8080/api/v1/usuarios/cadastrar', // Substitua pelo seu endpoint
                     type: 'POST',
                     contentType: 'application/json',
-                    data: JSON.stringify(dataObject), 
-                    success: function(response) {
-                        
+                    dataType: 'text',
+                    data: JSON.stringify(dataObject), // Converte o objeto para JSON
+                    success: function(response, textStatus, jqXHR){
+                        // Lógica em caso de sucesso
                         alert('Cadastro realizado com sucesso!');
-                        console.log(response); 
+                        const location = jqXHR.getResponseHeader('Location');
+                        console.log('Novo recurso criado em:', location);
+                        
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        // Lógica em caso de erro
+                        alert('Erro ao cadastrar: ' + errorThrown);
+                        console.log(jqXHR.responseText); // Detalhes do erro
                     }
                 });
             });
