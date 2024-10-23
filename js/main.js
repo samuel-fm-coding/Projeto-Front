@@ -33,14 +33,14 @@ function viaCEP(cep, callback) {
       success: function(data) {
           if (data.erro) {
               alert('CEP não encontrado.');
-              callback(null); // Chama o callback com null em caso de erro
+              callback(null); 
           } else {
-              callback(data); // Chama o callback com os dados recebidos
+              callback(data); 
           }
       },
       error: function() {
           alert('Erro ao consultar o CEP.');
-          callback(null); // Chama o callback com null em caso de erro
+          callback(null);
       }
   });
 }

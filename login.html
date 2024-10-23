@@ -27,8 +27,8 @@
             </div>
             <form id="form-login">
                 <div class="form-group">
-                    <label for="emailCadastro">E-mail</label>
-                    <input type="email" class="form-control" id="emailCadastro" name="email" placeholder="Digite o e-mail" required>
+                    <label for="emailLogin">E-mail</label>
+                    <input type="email" class="form-control" id="emailLogin" name="email" placeholder="Digite o e-mail" required>
                 </div>
                 
                 <div class="form-group">
@@ -58,43 +58,18 @@
     <script>
         $('#cpfLogin').mask('000.000.000-00');
 
-        /*$("#btn-login").off('click').on('click', function(){
-            var cpf = $("#cpfLogin").val();
-            var senha = $("#senhaLogin").val();
-            var retorno = $("#msg-retorno");
+        $("#form-login").on('submit', function(e) {
+            e.preventDefault(); 
 
-            if(cpf == ''){
-                retorno.text('Preencha o campo CPF para fazer o login').removeClass('none');    
+            if($("#emailLogin").val() == ''){
+                alert("Preencha seu e-mail para realizar o login");
                 return false;
             }
-            else if(senha == ''){
-                retorno.text('Entre com sua senha para fazer o login').removeClass('none');
+            else if($("#senhaLogin").val() == ''){
+                alert("Preencha sua senha para realizar o login");
                 return false;
             }
             else{
-                const 
-                $.ajax({
-                    url: 'http://localhost:8080/api/v1/usuarios/login', 
-                    type: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify(dataObject), 
-                    success: function(response) {
-                        
-                        alert('Login realizado com sucesso!');
-                        console.log(response);
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        // Lógica em caso de erro
-                        alert('Erro ao cadastrar: ' + errorThrown);
-                        console.log(jqXHR.responseText); 
-                    }
-                });
-            }
-        });*/
-        $("#form-login").on('submit', function(e) {
-                e.preventDefault(); // Impede o envio padrão do formulário
-
-                // Coleta os dados do formulário
                 const formData = new FormData(this);
                 const dataObject = {};
 
@@ -102,7 +77,6 @@
                 formData.forEach((value, key) => {
                     dataObject[key] = value;
                 });
-                console.log(JSON.stringify(dataObject))
                 
                 $.ajax({
                     url: 'http://localhost:8080/api/v1/usuarios/login',
@@ -115,12 +89,14 @@
                         console.log(response); 
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
-                        
-                        alert('Erro ao login: ' + errorThrown);
-                        console.log(jqXHR.responseText); 
+                        var responseError = JSON.parse(jqXHR.responseText);
+                        alert('Erro ao cadastrar: ' + responseError.mensagens);
+                        console.log(responseError); // Detalhes do erro
                     }
                 });
-            });
+            }
+            
+        });
     </script>
 </body>
 
