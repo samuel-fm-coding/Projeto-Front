@@ -201,64 +201,101 @@ h6 {
 
 .carousel {
   position: relative;
-  max-width: 800px;
+  width: 90%;
+  max-width: 700px;
   margin: auto;
-  img {
-    width: 100%;
-    height: auto;
-  }
+  overflow: hidden;
 }
 
 .slides {
   display: flex;
-  overflow: hidden;
+  transition: transform 0.5s ease-in-out;
+  width: 100%;
 }
 
 .slide {
   min-width: 100%;
-  transition: transform 0.5s ease-in-out;
   position: relative;
 }
 
+.slide img {
+  width: 100%;
+  height: auto;
+}
+
+/* Estilos da legenda */
 .caption {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-  color: white;
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 10px;
-  border-radius: 5px;
+  position: relative; /* Movemos a legenda para fora da imagem */
+  padding: 20px;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.9); /* Fundo semi-transparente */
+  width: 100%; /* Largura da legenda será 100% do slide */
+  box-sizing: border-box; /* Garante que padding seja incluído na largura */
+  margin-top: 10px; /* Distância entre a imagem e a legenda */
 }
 
 .caption h2 {
   margin: 0;
 }
 
+/* Estilos das setas */
 .prev, .next {
+  cursor: pointer;
   position: absolute;
   top: 50%;
-  width: 40px;
-  height: 40px;
-  background-color: rgba(0, 0, 0, 0.5);
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
   color: white;
-  font-size: 24px;
-  line-height: 40px;
-  text-align: center;
-  border-radius: 50%;
-  cursor: pointer;
-  transform: translateY(-50%);
-  display: none;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
 }
 
 .prev {
-  left: 10px;
+  left: 0;
+  border-radius: 3px 0 0 3px;
 }
 
-.next {
-  right: 10px;
-}
+
 
 .carousel:hover .prev, 
 .carousel:hover .next {
   display: block;
+}
+
+/* Ajuste da logo para ser responsiva e não crescer demais */
+.logo-header {
+  max-width: 150px; /* Define o tamanho máximo da logo */
+  max-height: 50px; /* Limita a altura máxima da logo */
+  width: auto; /* Ajusta a largura de forma proporcional */
+  height: auto; /* Mantém a proporção da imagem */
+  display: block;
+}
+
+.navbar-brand {
+  padding: 5px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centraliza a logo na navbar */
+}
+
+/* Para telas menores */
+@media (max-width: 768px) {
+  .logo-header {
+    max-width: 100px; /* Reduz o tamanho da logo em telas menores */
+    max-height: 40px; /* Limita ainda mais a altura */
+  }
+  .caption {
+    font-size: 16px;
+    padding: 10px;
+  }
 }

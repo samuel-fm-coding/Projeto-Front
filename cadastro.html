@@ -22,27 +22,27 @@
             <form id="cadastroForm">
                 <div class="form-group">
                     <label for="nomeCadastro">Nome</label>
-                    <input type="text" class="form-control obrigatorio" id="nomeCadastro" name="nome" placeholder="Digite o seu nome completo" required>
+                    <input type="text" class="form-control" id="nomeCadastro" name="nome" placeholder="Digite o seu nome completo" required>
                 </div>
                 <div class="form-group">
                     <label for="cpfCadastro">CPF</label>
-                    <input type="text" class="form-control obrigatorio" id="cpfCadastro" name="cpf" placeholder="___.___.___-__" required>
+                    <input type="text" class="form-control" id="cpfCadastro" name="cpf" placeholder="___.___.___-__" required>
                 </div>
                 <div class="form-group">
                     <label for="nascimentoCadastro">Data de Nascimento</label>
-                    <input type="date" class="form-control obrigatorio" id="nascimentoCadastro" name="data_nascimento" required>
+                    <input type="date" class="form-control" id="nascimentoCadastro" name="nascimento" required>
                 </div>
                 <div class="form-group">
                     <label for="emailCadastro">E-mail</label>
-                    <input type="email" class="form-control obrigatorio" id="emailCadastro" name="email" placeholder="Digite o e-mail" required>
+                    <input type="email" class="form-control" id="emailCadastro" name="email" placeholder="Digite o e-mail" required>
                 </div>
                 <div class="form-group">
                     <label for="telefoneCadastro">Telefone</label>
-                    <input type="text" class="form-control obrigatorio" id="telefoneCadastro" name="telefone" placeholder="Digite o telefone para contato" required>
+                    <input type="text" class="form-control" id="telefoneCadastro" name="telefone" placeholder="Digite o telefone para contato" required>
                 </div>
                 <div class="form-group">
                     <label for="senhaCadastro">Senha</label>
-                    <input type="password" class="form-control obrigatorio" id="senhaCadastro" name="senha" placeholder="Insira a senha" required>
+                    <input type="password" class="form-control" id="senhaCadastro" name="senha" placeholder="Insira a senha" required>
                 </div>
                 
                 <div class="text-center">
@@ -69,49 +69,31 @@
 
             // Evento de envio do formulário
             $("#cadastroForm").on('submit', function(e) {
-                var count_empty = 0;
-                e.preventDefault(); // Impede o envio padrão do formulário
-                $(this).find('input').each(function(){
-                    if($(this).val() == '' && $(this).hasClass('obrigatorio')){
-                        $(this).css('border', '1px solid red');
-                        count_empty++;
-                    }        
+                e.preventDefault(); 
+
+                const formData = new FormData(this);
+                const dataObject = {};
+
+                // Transforma FormData em objeto
+                formData.forEach((value, key) => {
+                    dataObject[key] = value;
                 });
 
-                if(count_empty > 0){
-                    alert('Preencha todos os campos para realizar o cadastro', 'danger');
-                    return false;
-                }
-                else{
-                    const formData = new FormData(this);
-                    const dataObject = {};
 
-                    // Transforma FormData em objeto
-                    formData.forEach((value, key) => {
-                        dataObject[key] = value;
-                    });
-                    console.log(JSON.stringify(dataObject))
-        
-                    $.ajax({
-                        url: 'http://localhost:8080/api/v1/usuarios/cadastrar', 
-                        type: 'POST',
-                        contentType: 'application/json',
-                        dataType: 'text',
-                        data: JSON.stringify(dataObject), 
-                        success: function(response, textStatus, jqXHR){
-                            alert('Cadastro realizado com sucesso!');
-                            const location = jqXHR.getResponseHeader('Location');
-                            console.log('Novo recurso criado em:', location);
-                            
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            var responseError = JSON.parse(jqXHR.responseText);
-                            alert('Erro ao cadastrar: ' + responseError.mensagens);
-                            console.log(responseError); // Detalhes do erro
-                        }
-                    });
-                }
-                
+                $.ajax({
+                    url: 'http://localhost:8080/api/v1/usuarios/cadastrar', 
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(dataObject), 
+                    success: function(response) {
+                        alert('Cadastro realizado com sucesso!');
+                        console.log(response); 
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        alert('Erro ao cadastrar: ' + errorThrown);
+                        console.log(jqXHR.responseText); 
+                    }
+                });
             });
         });
     </script>
