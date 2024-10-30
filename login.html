@@ -84,9 +84,14 @@
                     contentType: 'application/json',
                     data: JSON.stringify(dataObject), 
                     success: function(response) {
-                        
-                        alert('Login realizado com sucesso!');
-                        console.log(response); 
+                        if(response.token) {
+                            localStorage.setItem('userId', response.id);
+                            localStorage.setItem('userToken', response.token);
+
+                            window.location.href = 'imoveis.html';
+                        } else {
+                            alert('Falha no login. Verifique suas credenciais.');
+                        }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         var responseError = JSON.parse(jqXHR.responseText);

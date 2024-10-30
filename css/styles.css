@@ -29,11 +29,15 @@ header a:hover{
   border-bottom: 2px solid black; 
 }
 
+.navbar-default{
+  background-color: transparent !important;
+}
+
 .form-control{
   border: 1px solid #678a73 !important;
 }
 
-.principal{
+.container{
   margin-top: 5%;
 }
 
