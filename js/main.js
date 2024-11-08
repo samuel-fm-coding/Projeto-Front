@@ -3,6 +3,7 @@ $(document).ready(function(){
   
   const token = localStorage.getItem('userToken');
   const anunciarPage = window.location.pathname.endsWith('cadastrar_imovel.html');
+  const perfilPage = window.location.pathname.endsWith('perfil.html');
   if (!token && anunciarPage) {
     alert('Você não está logado, clique em OK para prosseguir ao login');
     window.location.href = 'login.html';
@@ -57,6 +58,7 @@ function returnHeader() {
     //INCLUIR UM BOTAO/ICON DE PERFIL (PAGE QUE IRÁ CONTER OS IMOVEIS DO USUARIO, DADOS DELE, PODER EXCLUIR CONTA E EDITAR DADOS DA CONTA)
     html += `<!-- Parte direita, sempre visível -->
         <ul class="nav navbar-nav navbar-right" style="margin-right: 10px;">
+        <li><a href="perfil.html" class="btn btn-back-green" id="btn-perfil"><i class="bi bi-person"></i> Perfil</a></li>
           <li><a href="index.html" class="btn btn-outline-lightgreen" id="btn-logout"><i class="bi bi-power"></i> Sair</a></li>
         </ul>
       `;

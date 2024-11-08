@@ -91,14 +91,7 @@
                     <div class="form-group row">
                         <div class="col-xs-6">
                             <label for="CepImovel">CEP*:</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control obrigatorio" id="CepImovel" name="numero_cep" placeholder="_____-___">
-                                <span class="input-group-btn ml-10">
-                                    <button class="btn btn-outline-lightgreen" type="button" id="btn-consultar-imovel">
-                                        <i class="bi bi-search"></i>
-                                    </button>
-                                </span>
-                            </div>
+                            <input type="text" class="form-control obrigatorio" id="CepImovel" name="numero_cep" placeholder="_____-___">
                         </div>
             
                         <div class="col-xs-4">
@@ -218,16 +211,19 @@
                 $('#imageModal').modal('show'); // Abre o modal
             });
 
-            $("#btn-consultar-imovel").click(function(){
-                var cep = $("#CepImovel").val().replace("-", "");
-                viaCEP(cep, function(response) {
-                    if (response) {
-                        $("#CidadeImovel").val(response.localidade);
-                        $("#UFImovel").val(response.uf);
-                        $("#EnderecoImovel").val(response.logradouro);
-                        $("#BairroImovel").val(response.bairro);
-                    }
-                });
+            $("#CepImovel").on('keydown', function(e){
+                if(e.key == 'Tab'){
+                    var cep = $("#CepImovel").val().replace("-", "");
+                    viaCEP(cep, function(response) {
+                        if (response) {
+                            $("#CidadeImovel").val(response.localidade);
+                            $("#UFImovel").val(response.uf);
+                            $("#EnderecoImovel").val(response.logradouro);
+                            $("#BairroImovel").val(response.bairro);
+                        }
+                    });
+                }
+                
             });
 
             $("#form-cadastrar-imovel").on('submit', function(e){
@@ -255,18 +251,21 @@
                 const token = localStorage.getItem('userToken');
                 if(id){
                     $.ajax({
-                        url: 'http://localhost:8080/api/v1/imoveis/cadastrar/'+id,  
+                        url: 'http://localhost:8080/api/v1/imoveis/cadastrar/' + id,
                         method: 'POST',
                         data: JSON.stringify(formData),
                         contentType: 'application/json',
-                        headers:{
-                            'Authorization': `Bearer ${token}`
+                        dataType: 'text',
+                        headers: {
+                            'Authorization': 'Bearer ' + localStorage.getItem('userToken')
                         },
-                        success: function(response) {
+                        success: function (response) {
                             alert("Imóvel cadastrado com sucesso!");
                         },
-                        error: function(error) {
-                            alert("Erro ao cadastrar o imóvel.");
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            var responseError = JSON.parse(jqXHR.responseText);
+                            alert('Erro ao cadastrar: ' + responseError.mensagens);
+                            console.log(responseError); 
                         }
                     });
                 }

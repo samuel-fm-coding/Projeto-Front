@@ -96,7 +96,7 @@
                     error: function(jqXHR, textStatus, errorThrown) {
                         var responseError = JSON.parse(jqXHR.responseText);
                         alert('Erro ao cadastrar: ' + responseError.mensagens);
-                        console.log(responseError); // Detalhes do erro
+                        console.log(responseError);
                     }
                 });
             }
