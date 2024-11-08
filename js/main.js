@@ -22,7 +22,7 @@ function logout() {
 
 function returnHeader() {
     var html = `
-      <nav class="navbar navbar-default navbar-fixed-top" style="margin-top: 10px;">
+      <nav class="navbar navbar-default" style="margin-top: 10px;">
         <div class="container-fluid">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-header" aria-expanded="false">
@@ -54,6 +54,7 @@ function returnHeader() {
       `;
   }
   else{
+    //INCLUIR UM BOTAO/ICON DE PERFIL (PAGE QUE IRÁ CONTER OS IMOVEIS DO USUARIO, DADOS DELE, PODER EXCLUIR CONTA E EDITAR DADOS DA CONTA)
     html += `<!-- Parte direita, sempre visível -->
         <ul class="nav navbar-nav navbar-right" style="margin-right: 10px;">
           <li><a href="index.html" class="btn btn-outline-lightgreen" id="btn-logout"><i class="bi bi-power"></i> Sair</a></li>

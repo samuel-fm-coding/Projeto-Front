@@ -42,39 +42,6 @@
                 <h3>Cadastrar imóvel</h3>
             </div>
             <form id="form-cadastrar-imovel">
-                <!-- 
-                <div id="carouselPreview" class="carousel slide mb-3" data-ride="carousel">
-                    <div class="carousel-inner" id="preview"></div>
-                    <a class="carousel-control left" id="prev-carousel" href="#carouselPreview" role="button" data-slide="prev" style="display: none;">
-                        <i class="bi bi-chevron-left" aria-hidden="true" style="color: black; font-size: 30px;"></i>
-                        <span class="sr-only">Anterior</span>
-                    </a>
-                    <a class="carousel-control right" id="next-carousel" href="#carouselPreview" role="button" data-slide="next" style="display: none;">
-                        <i class="bi bi-chevron-right" aria-hidden="true" style="color: black; font-size: 30px;"></i>
-                        <span class="sr-only">Próximo</span>
-                    </a>
-                </div>
-                
-
-                <div class="form-group">
-                    <label for="imageInput">Selecionar Imagens (até 5)</label>
-                    <input type="file" id="imageInput" name="images" accept="image/*" multiple class="form-control-file">
-                </div>
-            INCLUIR TALVEZ DPS-->
-                <div class="form-group">
-                    <label class="control-label">Tipo do imóvel</label> 
-                    <div class="d-flex"> 
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="TipoImovel" id="Casa" value="Casa" checked>
-                            <label class="form-check-label" for="Casa">Casa</label>
-                        </div>
-                        <div class="form-check ml-10">
-                            <input class="form-check-input" type="radio" name="TipoImovel" id="Apartamento" value="Apartamento">
-                            <label class="form-check-label" for="Apartamento">Apartamento</label>
-                        </div>
-                    </div>              
-                </div>
-            
                 <fieldset class="fieldset-gray-pd">
                     <legend class="legend-field">Informações</legend>
                     <div class="form-group">
@@ -186,25 +153,6 @@
         </div>
     </div>
 
-    <!-- MODAL PARA EXIBIR IMG DE PRÉVIA -->
-    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="imageModalLabel">Imagem</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="center">
-                        <img id="modalImage" src="" class="img-responsive" alt="Imagem ampliada" style="width: -webkit-fill-available;">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script src="js/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script>
@@ -304,12 +252,16 @@
                 };
                 console.log(formData)
                 const id = localStorage.getItem('userId');
+                const token = localStorage.getItem('userToken');
                 if(id){
                     $.ajax({
                         url: 'http://localhost:8080/api/v1/imoveis/cadastrar/'+id,  
                         method: 'POST',
                         data: JSON.stringify(formData),
                         contentType: 'application/json',
+                        headers:{
+                            'Authorization': `Bearer ${token}`
+                        },
                         success: function(response) {
                             alert("Imóvel cadastrado com sucesso!");
                         },
