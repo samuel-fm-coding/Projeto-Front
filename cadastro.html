@@ -62,11 +62,44 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script>
         $(document).ready(function() {
+            var editar = getQueryVariable('editar');
             // Máscara para o CPF
             $("#cpfCadastro").mask('000.000.000-00');
             // Máscara para o telefone
             $("#telefoneCadastro").mask('(00) 00000-0000');
 
+            if(editar){
+                const id_user = getQueryVariable('id');
+                const token = localStorage.getItem('userToken');
+
+                if(token != ''){
+                    $.ajax({
+                        url: 'http://localhost:8080/api/v1/usuarios/buscar/' + id_user,
+                        method: 'GET',
+                        contentType: 'application/json',
+                        dataType: 'json',
+                        headers: {
+                            'Authorization': 'Bearer ' + localStorage.getItem('userToken')
+                        },
+                        success: function (response) {
+                            console.log(response)
+                            $("#nomeCadastro").val(response.nome)
+                            $("#cpfCadastro").val(response.cpf)
+                            $("#nascimentoCadastro").val(response.data_nascimento)
+                            $("#emailCadastro").val(response.email)
+                            $("#telefoneCadastro").val(response.telefone)
+
+                            $("#btn-cadastrar").attr('data-id', response.id)
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            var responseError = JSON.parse(jqXHR.responseText);
+                            alert('Erro ao consultar dados do usuário: ' + responseError.mensagens);
+                            console.log(responseError); 
+                        }
+                    });
+                }
+            }
+            
             // Evento de envio do formulário
             $("#cadastroForm").on('submit', function(e) {
                 e.preventDefault(); 
