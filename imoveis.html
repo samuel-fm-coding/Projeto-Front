@@ -57,22 +57,10 @@
             </div>
 
             <div class="col-md-10">
-                <div class="row">
+                <div class="row" id="box-imoveis">
                     <!-- Exemplo de card -->
-                    <div class="col-xs-6 col-md-3">
-                        <div class="panel panel-default mx-2 mb-4">
-                            <div class="panel-body">
-                                <img src="https://via.placeholder.com/300" class="img-responsive" alt="Imagem do Card">
-                            </div>
-                            <div class="panel-footer">
-                                <small class="card-text"><i class="fa fa-bed" aria-hidden="true"></i> 2 quartos</small>
-                                <br>
-                                <small class="card-text"><i class="fa fa-bath" aria-hidden="true"></i> 1 banheiro</small>
-                            </div>
-                        </div>
-                    </div>
                     
-                    <!-- Repetir o card acima para mais imóveis -->
+
                 </div>
             </div>
         </div>
@@ -109,12 +97,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script>
         $(document).ready(function(){
-            $(".card").off('click').on('click', function(e){
-                e.preventDefault();
-                $("#imovelModal").modal('show');
-            });
             const id = localStorage.getItem('userId');
             const token = localStorage.getItem('userToken');
+
             $.ajax({
                 url: 'http://localhost:8080/api/v1/imoveis/buscar-disponiveis',
                 method: 'GET',
@@ -124,13 +109,32 @@
                     'Authorization': 'Bearer ' + localStorage.getItem('userToken')
                 },
                 success: function (response) {
-                    console.log(response)
+                    console.log(response.content)
+                    $.each(response.content, function(key, value){
+                        var html = `<div class="col-xs-6 col-md-3 card-imovel">
+                                        <div class="panel panel-default mx-2 mb-4">
+                                            <div class="panel-body">
+                                                <img src="https://via.placeholder.com/300" class="img-responsive" alt="Imagem do Card">
+                                            </div>
+                                            <div class="panel-footer">
+                                                <p data-id-t="${value.id}">${value.descricao}</p>
+                                            </div>
+                                        </div>
+                                    </div>`;
+                        
+                        $("#box-imoveis").append(html)
+                    });
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     var responseError = JSON.parse(jqXHR.responseText);
                     alert('Erro ao carregar imóveis: ' + responseError.mensagens);
                     console.log(responseError); 
                 }
+            });
+
+            $(".card-imovel").off('click').on('click', function(e){
+                e.preventDefault();
+                $("#imovelModal").modal('show');
             });
         });
     </script>
