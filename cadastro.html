@@ -114,7 +114,7 @@
 
                 $.ajax({
                     url: url_ajax, 
-                    method: 'POST',
+                    method: editar ? 'PUT' : 'POST',
                     headers: {
                         'Authorization': 'Bearer ' + localStorage.getItem('userToken')
                     },
@@ -122,12 +122,15 @@
                     dataType: 'json',
                     data: JSON.stringify(dataObject), 
                     success: function(response) {
-                        if(response.token) {
+                        if(!editar && response.token) {
                             localStorage.setItem('userId', response.id);
                             localStorage.setItem('userToken', response.token);
 
                             window.location.href = 'imoveis.html';
-                        } else {
+                        } else if (editar && response.id) {
+                            console.log(response);
+                        }
+                        else {
                             alert('Falha no envio. Verifique suas credenciais.');
                         }
                     },
