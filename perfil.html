@@ -17,7 +17,14 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-
+<style>
+    .buttons{
+        padding-left: 20px;
+        padding-right: 20px;
+        font-size: 16px;
+        width: 150px;
+    }
+</style>
 <body>
     <header></header>
     
@@ -29,15 +36,15 @@
             <br />
             <div class="btns-perfil">
                 <div class="col-xs-12 center">
-                    <button class="btn btn-back-green mt-15" id="btn-meus-imoveis">Meus Imóveis</button>
+                    <button class="btn btn-back-green mt-15 buttons" id="btn-meus-imoveis">Meus Imóveis</button>
                 </div>
                 <br />
                 <div class="col-xs-12 center mt-5">
-                    <button class="btn btn-back-green mt-15" id="btn-editar-perfil">Editar Perfil</button>
+                    <button class="btn btn-back-green mt-15 buttons" id="btn-editar-perfil">Editar Perfil</button>
                 </div>
                 <br />
                 <div class="col-xs-12 center">
-                    <button class="btn btn-back-green mt-15" id="btn-excluir-conta">Excluir Conta</button>
+                    <button class="btn btn-back-green mt-15 buttons" id="btn-excluir-conta">Excluir Conta</button>
                 </div>
             </div>
         </div>
@@ -87,6 +94,12 @@
                     }
                 });
             }
+
+            $("#btn-meus-imoveis").off('click').on('click', function(e){
+                e.preventDefault();
+
+                $("#MeusImoveisModal").modal('show')
+            });
         });
     </script>
 </body>

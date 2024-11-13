@@ -113,6 +113,25 @@
                 e.preventDefault();
                 $("#imovelModal").modal('show');
             });
+            const id = localStorage.getItem('userId');
+            const token = localStorage.getItem('userToken');
+            $.ajax({
+                url: 'http://localhost:8080/api/v1/imoveis/buscar/' + id,
+                method: 'POST',
+                contentType: 'application/json',
+                dataType: 'json',
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('userToken')
+                },
+                success: function (response) {
+                    console.log(response)
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    var responseError = JSON.parse(jqXHR.responseText);
+                    alert('Erro ao carregar imóveis: ' + responseError.mensagens);
+                    console.log(responseError); 
+                }
+            });
         });
     </script>
 </body>
