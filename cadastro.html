@@ -17,7 +17,7 @@
     <div class="">
         <div class="container col-xs-12 col-sm-8 col-md-6 col-lg-4 col-md-offset-3 col-lg-offset-4">
             <div class="text-center">
-                <h3>Realize o seu cadastro</h3>
+                <h3 id="titulo-pg">Realize o seu cadastro</h3>
             </div>
             <form id="cadastroForm">
                 <div class="form-group">
@@ -49,7 +49,7 @@
                     <button type="submit" class="btn btn-back-green" id="btn-cadastrar">Cadastrar</button>
                 </div>      
                 <br />
-                <div class="form-group text-center">
+                <div class="form-group text-center" id="container-possui-conta">
                     <small>Já possui conta ?</small>
                     <a href="login.html" style="font-size: 14px; margin-left: 5px;">Fazer login</a>
                 </div>
@@ -72,6 +72,9 @@
                 const id_user = getQueryVariable('id');
                 url_ajax = 'http://localhost:8080/api/v1/usuarios/atualizar/'+id_user;
                 $("#senhaCadastro").closest('div').remove();
+                $("#titulo-pg").text('Editar perfil')
+                $("#container-possui-conta").remove()
+                $("#btn-cadastrar").text('Atualizar')
 
                 if(token != ''){
                     $.ajax({
@@ -128,7 +131,8 @@
 
                             window.location.href = 'imoveis.html';
                         } else if (editar && response.id) {
-                            console.log(response);
+                            alert('Dados atualizados com sucesso');
+                            window.location.href = "perfil.html";
                         }
                         else {
                             alert('Falha no envio. Verifique suas credenciais.');

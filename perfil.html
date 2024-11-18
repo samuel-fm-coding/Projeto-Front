@@ -66,6 +66,24 @@
         </div>
     </div>
 
+    <div class="modal fade" id="ExcluirContaModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="col-md-12 center">
+                        <h3>Você realmente deseja excluir a sua conta ?</h3>
+                    </div>
+                </div>
+                <div class="modal-footer center">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                        Não
+                    </button>
+                    <button type="button" class="btn btn-success ml-5" id="btn-confirmar-excluir-conta">Sim</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <footer></footer>
 
     <script src="js/main.js"></script>
@@ -107,6 +125,39 @@
                 var id_user = $("#id_usuario").data('id')
                 console.log(id);
                 window.location.href = "cadastro.html?editar=1&id="+id_user;
+            });
+
+            $("#btn-excluir-conta").off('click').on('click', function(){
+                $("#ExcluirContaModal").modal('show');
+            });
+
+            $("#btn-confirmar-excluir-conta").off('click').on('click', function(){
+                var id_user = localStorage.getItem('userId');
+
+                if(id_user){
+                    $.ajax({
+                        url: 'http://localhost:8080/api/v1/usuarios/deletar/' + id_user,
+                        method: 'DELETE',
+                        contentType: 'application/json',
+                        dataType: 'text',
+                        headers: {
+                            'Authorization': 'Bearer ' + localStorage.getItem('userToken')
+                        },
+                        success: function (response) {
+                            localStorage.removeItem('userId');
+                            localStorage.removeItem('userToken');
+                            alert('Conta excluída com sucesso');
+                            window.location.href = 'index.html';
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            var responseError = JSON.parse(jqXHR.responseText);
+                            alert('Erro ao consultar dados do usuário: ' + responseError.mensagens);
+                            console.log(responseError); 
+                        }
+                    });
+                }else{
+                    alert('Usuário não conectado, fazer login')
+                }
             });
         });
     </script>

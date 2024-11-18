@@ -121,5 +121,4 @@ function getQueryVariable(variable) {
       return pair[1];
     }
   } 
-  alert('Parâmetro "'+variable+'" não encontrado');
 }

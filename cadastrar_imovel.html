@@ -45,34 +45,39 @@
                 <fieldset class="fieldset-gray-pd">
                     <legend class="legend-field">Informações</legend>
                     <div class="form-group">
-                        <label for="TituloImovel">Título*:</label>
-                        <input type="text" class="form-control obrigatorio" id="TituloImovel" name="TituloImovel">
+                        <label for="DescricaoImovel">Descrição*:</label>
+                        <input type="text" class="form-control obrigatorio" id="DescricaoImovel" name="DescricaoImovel">
                     </div>
                     
-                    <div class="form-group row">                      
+                    <div class="form-group row">      
                         <div class="col-xs-12 col-md-4 col-lg-2">
-                            <label for="QuartosImovel">Quartos*:</label>
+                            <label for="BanheirosImovel">Banheiro(s)*:</label>
+                            <input type="number" class="form-control obrigatorio" id="BanheirosImovel" name="BanheirosImovel" min="0" max="10" onkeydown="return false;">
+                        </div>                
+                        <div class="col-xs-12 col-md-4 col-lg-2">
+                            <label for="QuartosImovel">Quarto(s)*:</label>
                             <input type="number" class="form-control obrigatorio" id="QuartosImovel" name="QuartosImovel" min="0" max="10" onkeydown="return false;">
                         </div>
                         <div class="col-xs-12 col-md-4 col-lg-2">
-                            <label for="BanheirosImovel">Banheiros*:</label>
-                            <input type="number" class="form-control obrigatorio" id="BanheirosImovel" name="BanheirosImovel" min="0" max="10" onkeydown="return false;">
+                            <label for="SalasImovel">Sala(s)*:</label>
+                            <input type="number" class="form-control obrigatorio" id="SalasImovel" name="SalasImovel" min="0" max="10" onkeydown="return false;">
                         </div>
                         <div class="col-xs-12 col-md-4 col-lg-2">
-                            <label for="SuitesImovel">Suítes*:</label>
-                            <input type="number" class="form-control obrigatorio" id="SuitesImovel" name="SuitesImovel" min="0" max="10" onkeydown="return false;">
+                            <label for="CozinhasImovel">Cozinha(s)*:</label>
+                            <input type="number" class="form-control obrigatorio" id="CozinhasImovel" name="CozinhasImovel" min="0" max="10" onkeydown="return false;">
                         </div>
-                        <br />
+                        <div class="col-xs-12 col-md-4 col-lg-2">
+                            <label for="GaragemImovel">Garagem(ns)*:</label>
+                            <input type="number" class="form-control obrigatorio" id="GaragemImovel" name="GaragemImovel" min="0" max="10" onkeydown="return false;">
+                        </div>             
+                    </div>
+
+                    <div class="row">
                         <div class="col-xs-12 col-md-6">
                             <small><strong>Dica:</strong> utilize as setas para alterar a quantidade de cômodos</small>
                         </div>
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="DescricaoImovel">Descrição*:</label>
-                        <textarea class="form-control obrigatorio" id="DescricaoImovel" name="descricao" rows="4" maxlength="500" placeholder="Dê mais detalhes sobre o imóvel"></textarea>
-                    </div>
-
+                    <br>
                     <div class="form-group row">
                         <div class="col-xs-12 col-md-4">
                             <label for="valor">Preço*:</label>
@@ -171,46 +176,6 @@
                 }
             });
 
-            $('#imageInput').on('change', function() {
-                const files = this.files;
-
-                $('#preview').empty();
-                $('#prev-carousel').hide();
-                $('#next-carousel').hide();
-
-                if (files.length > 5) {
-                    alert("Você pode selecionar no máximo 5 imagens.");
-                    $(this).val('');
-                    return false;
-                }
-
-                for (let i = 0; i < files.length; i++) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const isActive = (i === 0) ? 'active' : ''; // Apenas a primeira imagem será ativa
-                        $('#preview').append(`
-                            <div class="item ${isActive}" data-image="${e.target.result}">
-                                <img src="${e.target.result}" class="img-responsive" style="height: 400px; object-fit: cover;">
-                            </div>
-                        `);
-                    }
-                    reader.readAsDataURL(files[i]);
-                }
-
-                // Exibir os botões se houver imagens
-                if (files.length > 0) {
-                    $('#prev-carousel').show();
-                    $('#next-carousel').show();
-                }
-            });
-
-            // Evento para abrir o modal com a imagem clicada
-            $('#preview').on('click', '.item', function() {
-                const imageSrc = $(this).data('image');
-                $('#modalImage').attr('src', imageSrc);
-                $('#imageModal').modal('show'); // Abre o modal
-            });
-
             $("#CepImovel").on('keydown', function(e){
                 if(e.key == 'Tab'){
                     var cep = $("#CepImovel").val().replace("-", "");
@@ -247,6 +212,7 @@
                     numero_cep: $("#CepImovel").val()
                 };
                 console.log(formData)
+                return
                 const id = localStorage.getItem('userId');
                 const token = localStorage.getItem('userToken');
                 if(id){

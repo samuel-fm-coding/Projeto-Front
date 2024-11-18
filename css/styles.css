@@ -61,13 +61,13 @@ header a:hover{
   padding: 20px; 
 }
 
-.card {
+.card-imovel {
   max-width: 250px;
   max-height: 300px;
   transition: transform 50ms ease-out;
 }
 
-.card:hover {
+.card-imovel:hover {
   transform: scale(1.1);
   cursor: pointer;
 }
@@ -306,4 +306,9 @@ h6 {
 
 .mt-15{
   margin-top: 15px;
+}
+
+.fw-600{
+  /*BOLD STYLE*/
+  font-weight: 600;
 }
