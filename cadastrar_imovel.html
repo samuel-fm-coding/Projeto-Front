@@ -191,6 +191,9 @@
                 
             });
 
+            var editar = getQueryVariable('editar');
+            var id_imovel = getQueryVariable('id');
+
             $("#form-cadastrar-imovel").on('submit', function(e){
                 e.preventDefault();
                 var count_empty = 0;
@@ -212,13 +215,13 @@
                     numero_cep: $("#CepImovel").val()
                 };
                 console.log(formData)
-                return
+                
                 const id = localStorage.getItem('userId');
                 const token = localStorage.getItem('userToken');
                 if(id){
                     $.ajax({
-                        url: 'http://localhost:8080/api/v1/imoveis/cadastrar/' + id,
-                        method: 'POST',
+                        url: editar ? 'http://localhost:8080/api/v1/imoveis/atualizar/' + id : 'http://localhost:8080/api/v1/imoveis/cadastrar/' + id,
+                        method: editar ? 'PUT' : 'POST',
                         data: JSON.stringify(formData),
                         contentType: 'application/json',
                         dataType: 'text',
@@ -226,7 +229,9 @@
                             'Authorization': 'Bearer ' + localStorage.getItem('userToken')
                         },
                         success: function (response) {
-                            alert("Imóvel cadastrado com sucesso!");
+                            alert(editar ? "Os dados do seu imóvel foram atualizados com sucesso!" : "Seu imóvel foi cadastrado com sucesso!");
+                            window.location.href = 'perfil.html';
+                            console.log(response)
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             var responseError = JSON.parse(jqXHR.responseText);

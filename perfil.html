@@ -54,13 +54,18 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="imageModalLabel">Meus Imóveis</h5>
+                    <h3 class="modal-title" id="imageModalLabel">Meus Imóveis</h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    
+                    <div class="col-md-12" id="container-meus-imoveis"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        Fechar
+                    </button>
                 </div>
             </div>
         </div>
@@ -117,8 +122,92 @@
 
             $("#btn-meus-imoveis").off('click').on('click', function(e){
                 e.preventDefault();
+                
+                if(localStorage.getItem('userId')){
+                    $.ajax({
+                        url: 'http://localhost:8080/api/v1/imoveis/buscar-meus/' + localStorage.getItem('userId'),
+                        method: 'GET',
+                        contentType: 'application/json',
+                        dataType: 'json',
+                        headers: {
+                            'Authorization': 'Bearer ' + localStorage.getItem('userToken')
+                        },
+                        success: function (response) {
+                            console.log(response.content);
 
-                $("#MeusImoveisModal").modal('show')
+                            var html = `
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 5%;">ID</th>
+                                            <th style="width: 30%;">Descrição</th>
+                                            <th style="width: 20%;">Endereço</th>
+                                            <th style="width: 15%;">Cidade</th>
+                                            <th style="width: 10%;">Preço</th>
+                                            <th style="width: 20%;">Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                            `;
+
+                            // Itera sobre cada item na lista de imóveis
+                            $.each(response.content, function (key, value) {
+                                html += `
+                                    <tr>
+                                        <td>${value.id}</td>
+                                        <td>${value.descricao}</td>
+                                        <td>${value.cep.rua}  (${value.numero})</td>
+                                        <td>${value.cep.cidade} - ${value.cep.uf}</td>
+                                        <td>${value.valor ? value.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : '-'}</td>
+                                        <td>
+                                            <button class="btn btn-primary btn-sm btn-editar-imovel" data-id="${value.id}">Editar</button>
+                                            <button class="btn btn-danger btn-sm btn-excluir-imovel" data-id="${value.id}">Excluir</button>
+                                        </td>
+                                    </tr>
+                                `;
+                            });
+
+                            html += `
+                                    </tbody>
+                                </table>
+                            `;
+                            $("#container-meus-imoveis").html(html);
+
+                            $(".btn-editar-imovel").off('click').on('click', function () {
+                                var idImovel = $(this).data("id");
+                                window.location.href = `cadastrar_imovel.html?editar=1&id=${idImovel}`;
+                            });
+
+                            $(".btn-excluir-imovel").off('click').on('click', function () {
+                                var idImovel = $(this).data("id");
+                                if (confirm("Deseja realmente excluir este imóvel?")) {
+                                    $.ajax({
+                                        url: `http://localhost:8080/api/v1/imoveis/deletar/${idImovel}`,
+                                        method: "DELETE",
+                                        headers: {
+                                            'Authorization': 'Bearer ' + localStorage.getItem('userToken')
+                                        },
+                                        success: function () {
+                                            alert("Imóvel excluído com sucesso.");
+                                            $("#btn-meus-imoveis").trigger("click");
+                                        },
+                                        error: function (jqXHR) {
+                                            var responseError = JSON.parse(jqXHR.responseText);
+                                            alert("Erro ao excluir imóvel: " + responseError.mensagens);
+                                        }
+                                    });
+                                }
+                            });
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            var responseError = JSON.parse(jqXHR.responseText);
+                            alert('Erro ao consultar dados do usuário: ' + responseError.mensagens);
+                            console.log(responseError); 
+                        }
+                    });
+                }
+
+                $("#MeusImoveisModal").modal('show');
             });
 
             $("#btn-editar-perfil").off('click').on('click', function(){
