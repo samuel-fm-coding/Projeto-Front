@@ -139,10 +139,10 @@
                                             <img src="https://via.placeholder.com/300" class="img-responsive" alt="Imagem do Card">
                                             <br>
                                             <p data-id-t="${value.id}" class="fw-600">${value.descricao}</p>
-                                            <br>
                                             <p>${value.cep.cidade} - ${value.cep.uf}</p>
+                                            <small>${value.tamanho} m²</small>
                                         </div>
-                                        <div class="panel-footer">
+                                        <div class="panel-footer d-flex">
                                             <p>${value.valor ? value.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : '-'}</p>
                                         </div>
                                     </div>

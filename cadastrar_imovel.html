@@ -49,26 +49,26 @@
                         <input type="text" class="form-control obrigatorio" id="DescricaoImovel" name="DescricaoImovel">
                     </div>
                     
-                    <div class="form-group row">      
+                    <div class="form-group row" id="container-comodos">      
                         <div class="col-xs-12 col-md-4 col-lg-2">
                             <label for="BanheirosImovel">Banheiro(s)*:</label>
-                            <input type="number" class="form-control obrigatorio" id="BanheirosImovel" name="BanheirosImovel" min="0" max="10" onkeydown="return false;">
+                            <input type="number" class="form-control obrigatorio" id="BanheirosImovel" name="BanheirosImovel" min="0" max="10" onkeydown="return false;" data-comodo="1">
                         </div>                
                         <div class="col-xs-12 col-md-4 col-lg-2">
                             <label for="QuartosImovel">Quarto(s)*:</label>
-                            <input type="number" class="form-control obrigatorio" id="QuartosImovel" name="QuartosImovel" min="0" max="10" onkeydown="return false;">
+                            <input type="number" class="form-control obrigatorio" id="QuartosImovel" name="QuartosImovel" min="0" max="10" onkeydown="return false;" data-comodo="2">
                         </div>
                         <div class="col-xs-12 col-md-4 col-lg-2">
                             <label for="SalasImovel">Sala(s)*:</label>
-                            <input type="number" class="form-control obrigatorio" id="SalasImovel" name="SalasImovel" min="0" max="10" onkeydown="return false;">
+                            <input type="number" class="form-control obrigatorio" id="SalasImovel" name="SalasImovel" min="0" max="10" onkeydown="return false;" data-comodo="3">
                         </div>
                         <div class="col-xs-12 col-md-4 col-lg-2">
                             <label for="CozinhasImovel">Cozinha(s)*:</label>
-                            <input type="number" class="form-control obrigatorio" id="CozinhasImovel" name="CozinhasImovel" min="0" max="10" onkeydown="return false;">
+                            <input type="number" class="form-control obrigatorio" id="CozinhasImovel" name="CozinhasImovel" min="0" max="10" onkeydown="return false;" data-comodo="4">
                         </div>
                         <div class="col-xs-12 col-md-4 col-lg-2">
                             <label for="GaragemImovel">Garagem(ns)*:</label>
-                            <input type="number" class="form-control obrigatorio" id="GaragemImovel" name="GaragemImovel" min="0" max="10" onkeydown="return false;">
+                            <input type="number" class="form-control obrigatorio" id="GaragemImovel" name="GaragemImovel" min="0" max="10" onkeydown="return false;" data-comodo="5">
                         </div>             
                     </div>
 
@@ -220,7 +220,7 @@
                 const token = localStorage.getItem('userToken');
                 if(id){
                     $.ajax({
-                        url: editar ? 'http://localhost:8080/api/v1/imoveis/atualizar/' + id : 'http://localhost:8080/api/v1/imoveis/cadastrar/' + id,
+                        url: editar ? 'http://localhost:8080/api/v1/imoveis/atualizar/' + id_imovel : 'http://localhost:8080/api/v1/imoveis/cadastrar/' + id,
                         method: editar ? 'PUT' : 'POST',
                         data: JSON.stringify(formData),
                         contentType: 'application/json',
@@ -228,10 +228,37 @@
                         headers: {
                             'Authorization': 'Bearer ' + localStorage.getItem('userToken')
                         },
-                        success: function (response) {
+                        success: function (response,  textStatus, jqXHR) {
+                            var id_imovel_cad = jqXHR.getResponseHeader('Location').match(/\/(\d+)$/)[1];
+
+                            $.each($("#container-comodos").find('input[type="number"]'), function(){
+                                var obj = {
+                                    "quantidade": $(this).val(),
+                                    "comodo_id": $(this).attr('data-comodo')
+                                }
+
+                                $.ajax({
+                                    url:  'http://localhost:8080/api/v1/comodos-imoveis/cadastrar/' + id_imovel_cad,
+                                    method: 'POST',
+                                    data: JSON.stringify(obj),
+                                    contentType: 'application/json',
+                                    dataType: 'text',
+                                    headers: {
+                                        'Authorization': 'Bearer ' + localStorage.getItem('userToken')
+                                    },
+                                    success: function (response) {
+                                        console.log('Comodos cadastrados')
+                                    },
+                                    error: function (jqXHR, textStatus, errorThrown) {
+                                        var responseError = JSON.parse(jqXHR.responseText);
+                                        alert('Erro ao cadastrar: ' + responseError.mensagens);
+                                        console.log(responseError); 
+                                    }
+                                });
+                            });
+
                             alert(editar ? "Os dados do seu imóvel foram atualizados com sucesso!" : "Seu imóvel foi cadastrado com sucesso!");
                             window.location.href = 'perfil.html';
-                            console.log(response)
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             var responseError = JSON.parse(jqXHR.responseText);
@@ -239,9 +266,7 @@
                             console.log(responseError); 
                         }
                     });
-                }
-                
-                
+                }             
             });
         });
     </script>
