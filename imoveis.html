@@ -131,9 +131,11 @@
             
             function renderImoveis(imoveis) {
                 $("#box-imoveis").empty();
-
+                var count_imoveis = 0;
                 $.each(imoveis, function (key, value) {
-                    var html = `<div class="col-xs-6 col-md-3 card-imovel" data-imovel='${JSON.stringify(value)}'>
+                    count_imoveis++;
+                    var html = `
+                    <div class="col-xs-6 col-md-3 card-imovel" data-imovel='${JSON.stringify(value)}' style="margin-bottom: 100px;">
                                     <div class="panel panel-default mx-2 mb-4">
                                         <div class="panel-body">
                                             <img src="https://via.placeholder.com/300" class="img-responsive" alt="Imagem do Card">
@@ -146,7 +148,9 @@
                                             <p>${value.valor ? value.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : '-'}</p>
                                         </div>
                                     </div>
-                                </div>`;
+                                </div>
+                                `;
+                    
 
                     $("#box-imoveis").append(html);
                 });

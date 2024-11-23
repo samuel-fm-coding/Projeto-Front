@@ -105,7 +105,7 @@
             
             $("#cadastroForm").on('submit', function(e) {
                 e.preventDefault(); 
-
+                verificaLogin();
                 const formData = new FormData(this);
                 const dataObject = {};
 

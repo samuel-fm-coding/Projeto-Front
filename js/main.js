@@ -1,13 +1,6 @@
 $(document).ready(function(){
   returnHeader();
-  
-  const token = localStorage.getItem('userToken');
-  const anunciarPage = window.location.pathname.endsWith('cadastrar_imovel.html');
-  const perfilPage = window.location.pathname.endsWith('perfil.html');
-  if (!token && anunciarPage) {
-    alert('Você não está logado, clique em OK para prosseguir ao login');
-    window.location.href = 'login.html';
-  }
+  verificaLogin();
 
   $('#cpfCadastro').mask('000.000.000-00');
 
@@ -15,6 +8,25 @@ $(document).ready(function(){
     logout();
   });
 });
+
+function verificaLogin(){
+  const token = localStorage.getItem('userToken');
+  const anunciarPage = window.location.pathname.endsWith('cadastrar_imovel.html');
+  const perfilPage = window.location.pathname.endsWith('perfil.html');
+  if (!token && (anunciarPage || perfilPage)) {
+    window.location.href = 'login.html';
+    localStorage.setItem('showLoginAlert', 'true');
+  }
+}
+
+//EXIBIRÁ O ALERT AO CARREGAR PAGE DE LOGIN - EVITAR VISUALIZAÇÃO DE PAGINA RESTRITA
+if (window.location.pathname.endsWith('login.html')) {
+  const showAlert = localStorage.getItem('showLoginAlert');
+  if (showAlert) {
+      alert('Você não está logado, clique em OK para prosseguir ao login');
+      localStorage.removeItem('showLoginAlert');
+  }
+}
 
 function logout() {
   localStorage.removeItem('userToken');
@@ -70,7 +82,6 @@ function returnHeader() {
   }
 
 
-
 function viaCEP(cep, callback) {
   $.ajax({
       url: `https://viacep.com.br/ws/${cep}/json/`,
@@ -89,27 +100,6 @@ function viaCEP(cep, callback) {
           callback(null);
       }
   });
-}
-
-let slideIndex = 0;
-showSlides(slideIndex);
-
-function plusSlides(n) {
-    showSlides(slideIndex += n);
-}
-
-function showSlides(n) {
-    const slides = document.getElementsByClassName("slide");
-
-    if (n >= slides.length) {
-        slideIndex = 0;
-    } else if (n < 0) {
-        slideIndex = slides.length - 1;
-    }
-
-    for (let i = 0; i < slides.length; i++) {
-        slides[i].style.transform = `translateX(-${slideIndex * 100}%)`;
-    }
 }
 
 function getQueryVariable(variable) {
