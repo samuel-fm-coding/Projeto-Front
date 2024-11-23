@@ -7,7 +7,8 @@
     <title>LocaHouse</title>
     <link href="css/styles.css" rel="stylesheet" type="text/css" />
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
+        rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
@@ -26,7 +27,7 @@
         background-color: #678a73;
         border-radius: 50%;
     }
-    
+
     input[type=number]::-webkit-inner-spin-button,
     input[type=number]::-webkit-outer-spin-button {
         opacity: 1;
@@ -49,28 +50,33 @@
                         <label for="DescricaoImovel">Descrição*:</label>
                         <input type="text" class="form-control obrigatorio" id="DescricaoImovel" name="DescricaoImovel">
                     </div>
-                    
-                    <div class="form-group row" id="container-comodos">      
+
+                    <div class="form-group row" id="container-comodos">
                         <div class="col-xs-12 col-md-4 col-lg-2">
                             <label for="BanheirosImovel">Banheiro(s)*:</label>
-                            <input type="number" class="form-control obrigatorio" id="BanheirosImovel" name="BanheirosImovel" min="0" max="10" onkeydown="return false;" data-comodo="1">
-                        </div>                
+                            <input type="number" class="form-control obrigatorio" id="BanheirosImovel"
+                                name="BanheirosImovel" min="0" max="10" onkeydown="return false;" data-comodo="1">
+                        </div>
                         <div class="col-xs-12 col-md-4 col-lg-2">
                             <label for="QuartosImovel">Quarto(s)*:</label>
-                            <input type="number" class="form-control obrigatorio" id="QuartosImovel" name="QuartosImovel" min="0" max="10" onkeydown="return false;" data-comodo="2">
+                            <input type="number" class="form-control obrigatorio" id="QuartosImovel"
+                                name="QuartosImovel" min="0" max="10" onkeydown="return false;" data-comodo="2">
                         </div>
                         <div class="col-xs-12 col-md-4 col-lg-2">
                             <label for="SalasImovel">Sala(s)*:</label>
-                            <input type="number" class="form-control obrigatorio" id="SalasImovel" name="SalasImovel" min="0" max="10" onkeydown="return false;" data-comodo="3">
+                            <input type="number" class="form-control obrigatorio" id="SalasImovel" name="SalasImovel"
+                                min="0" max="10" onkeydown="return false;" data-comodo="3">
                         </div>
                         <div class="col-xs-12 col-md-4 col-lg-2">
                             <label for="CozinhasImovel">Cozinha(s)*:</label>
-                            <input type="number" class="form-control obrigatorio" id="CozinhasImovel" name="CozinhasImovel" min="0" max="10" onkeydown="return false;" data-comodo="4">
+                            <input type="number" class="form-control obrigatorio" id="CozinhasImovel"
+                                name="CozinhasImovel" min="0" max="10" onkeydown="return false;" data-comodo="4">
                         </div>
                         <div class="col-xs-12 col-md-4 col-lg-2">
                             <label for="GaragemImovel">Garagem(ns)*:</label>
-                            <input type="number" class="form-control obrigatorio" id="GaragemImovel" name="GaragemImovel" min="0" max="10" onkeydown="return false;" data-comodo="5">
-                        </div>             
+                            <input type="number" class="form-control obrigatorio" id="GaragemImovel"
+                                name="GaragemImovel" min="0" max="10" onkeydown="return false;" data-comodo="5">
+                        </div>
                     </div>
 
                     <div class="row">
@@ -91,41 +97,45 @@
                     </div>
                 </fieldset>
                 <br />
-            
+
                 <fieldset class="fieldset-gray-pd">
                     <legend class="legend-field">Localização</legend>
                     <div class="form-group row">
                         <div class="col-xs-6">
                             <label for="CepImovel">CEP*:</label>
-                            <input type="text" class="form-control obrigatorio" id="CepImovel" name="numero_cep" placeholder="_____-___">
+                            <input type="text" class="form-control obrigatorio" id="CepImovel" name="numero_cep"
+                                placeholder="_____-___">
                         </div>
-            
+
                         <div class="col-xs-4">
                             <label for="CidadeImovel">Cidade:</label>
-                            <input type="text" class="form-control obrigatorio" id="CidadeImovel" name="CidadeImovel" disabled>
+                            <input type="text" class="form-control obrigatorio" id="CidadeImovel" name="CidadeImovel"
+                                disabled>
                         </div>
-                        
+
                         <div class="col-xs-2">
                             <label for="UFImovel">Estado:</label>
                             <input type="text" class="form-control obrigatorio" id="UFImovel" name="UFImovel" disabled>
                         </div>
                     </div>
-            
+
                     <div class="form-group row">
                         <div class="col-xs-6">
                             <label for="EnderecoImovel">Endereço:</label>
-                            <input type="text" class="form-control obrigatorio" id="EnderecoImovel" name="EnderecoImovel" disabled>
+                            <input type="text" class="form-control obrigatorio" id="EnderecoImovel"
+                                name="EnderecoImovel" disabled>
                         </div>
                         <div class="col-xs-6">
                             <label for="BairroImovel">Bairro:</label>
-                            <input type="text" class="form-control obrigatorio" id="BairroImovel" name="BairroImovel" disabled>
+                            <input type="text" class="form-control obrigatorio" id="BairroImovel" name="BairroImovel"
+                                disabled>
                         </div>
                     </div>
-                    
+
                     <div class="form-group row">
                         <div class="col-xs-12 col-md-6">
                             <label for="complemento">Complemento:</label>
-                            <input type="text" class="form-control" id="complemento" name="complemento">   
+                            <input type="text" class="form-control" id="complemento" name="complemento">
                         </div>
                         <div class="col-xs-12 col-md-4">
                             <label for="NumeroImovel">Número*:</label>
@@ -138,7 +148,7 @@
                     <button type="submit" class="btn btn-back-green" id="btn-cadastrar">Cadastrar</button>
                 </div>
             </form>
-            
+
         </div>
     </div>
 
@@ -147,15 +157,21 @@
     <script>
         var editar = getQueryVariable('editar');
         var id_imovel = getQueryVariable('id');
-        
-        $(document).ready(function() {
+
+        let idBanheiro = null;
+        let idQuarto = null;
+        let idSala = null;
+        let idCozinha = null;
+        let idGaragem = null;
+
+        $(document).ready(function () {
             $("#CepImovel").mask('00000-000');
             $("#TelefoneImovel").mask('(00) 00000-0000');
             $('#NumeroImovel').mask('0000', {
                 translation: {
-                    '0': {pattern: /[0-9]/}
+                    '0': { pattern: /[0-9]/ }
                 },
-                onKeyPress: function(val, e, field, options) {
+                onKeyPress: function (val, e, field, options) {
                     if (val.length === 0) {
                         $(field).val('');
                     }
@@ -163,17 +179,17 @@
                         $(field).val(val.slice(0, 1) + '-' + val.slice(1));
                     }
                 },
-                onComplete: function(val) {
+                onComplete: function (val) {
                     if (val.length === 4) {
                         $('#NumeroImovel').val(val.slice(0, 1) + '-' + val.slice(1));
                     }
                 }
             });
 
-            $("#CepImovel").on('keydown', function(e){
-                if(e.key == 'Tab'){
+            $("#CepImovel").on('keydown', function (e) {
+                if (e.key == 'Tab') {
                     var cep = $("#CepImovel").val().replace("-", "");
-                    viaCEP(cep, function(response) {
+                    viaCEP(cep, function (response) {
                         if (response) {
                             $("#CidadeImovel").val(response.localidade);
                             $("#UFImovel").val(response.uf);
@@ -182,14 +198,14 @@
                         }
                     });
                 }
-                
+
             });
 
-            
+
             //CARREGAR INFORMAÇOES DO IMOVEL CADASTRADO PARA EDITAR
-            if(editar){
+            if (editar) {
                 $.ajax({
-                    url: "http://localhost:8080/api/v1/imoveis/buscar/"+id_imovel,
+                    url: "http://localhost:8080/api/v1/imoveis/buscar/" + id_imovel,
                     method: "GET",
                     contentType: "application/json",
                     dataType: "json",
@@ -201,21 +217,40 @@
 
                         $("#status-imovel").attr('data-status', response.status);
                         $("#DescricaoImovel").val(response.descricao);
-                        
-                        $.each(response.comodos, function(key, value){
+
+                        $.each(response.comodos, function (key, value) {
                             var comodo = value.comodo.id;
-                            $('[data-comodo="'+comodo+'"]').val(comodo)
+                            $('[data-comodo="' + comodo + '"]').val(comodo)
                         });
 
-                        $("#BanheirosImovel").val(response.comodos[0].quantidade).attr('data-id-comodo', response.comodos[0].id);
-                        $("#QuartosImovel").val(response.comodos[1].quantidade).attr('data-id-comodo', response.comodos[1].id);
-                        $("#SalasImovel").val(response.comodos[2].quantidade).attr('data-id-comodo', response.comodos[2].id);
-                        $("#CozinhasImovel").val(response.comodos[3].quantidade).attr('data-id-comodo', response.comodos[3].id);
-                        $("#GaragemImovel").val(response.comodos[4].quantidade).attr('data-id-comodo', response.comodos[4].id);
+                        for (let i of response.comodos) {
+                            switch (i.comodo.id) {
+                                case 1:
+                                    $("#BanheirosImovel").val(i.quantidade);
+                                    idBanheiro = i.id;
+                                    break;
+                                case 2:
+                                    $("#QuartosImovel").val(i.quantidade);
+                                    idQuarto = i.id;
+                                    break;
+                                case 3:
+                                    $("#SalasImovel").val(i.quantidade);
+                                    idSala = i.id;
+                                    break;
+                                case 4:
+                                    $("#CozinhasImovel").val(i.quantidade);
+                                    idCozinha = i.id;
+                                    break;
+                                case 5:
+                                    $("#GaragemImovel").val(i.quantidade);
+                                    idGaragem = i.id;
+                                    break;
+                            }
+                        }
 
                         $("#valor").val(response.valor);
                         $("#tamanho").val(response.tamanho);
-                        $("#CepImovel").val(response.cep.numero); 
+                        $("#CepImovel").val(response.cep.numero);
                         $("#CepImovel").trigger($.Event('keydown', { key: 'Tab' }));
                         $("#complemento").val(response.complemento);
                         $("#NumeroImovel").val(response.numero);
@@ -227,20 +262,20 @@
                 });
             }
 
-            $("#form-cadastrar-imovel").on('submit', function(e){
+            $("#form-cadastrar-imovel").on('submit', function (e) {
                 e.preventDefault();
                 verificaLogin();
                 var count_empty = 0;
 
-                $(this).find('input, textarea').each(function(){
-                    if($(this).val() == '' && $(this).hasClass('obrigatorio')){
+                $(this).find('input, textarea').each(function () {
+                    if ($(this).val() == '' && $(this).hasClass('obrigatorio')) {
                         $(this).css('border', '1px solid red');
                         count_empty++;
                     }
                 });
 
                 const formData = {
-                    status: editar ? $("#status-imovel").data('status') : 0, 
+                    status: editar ? $("#status-imovel").data('status') : 0,
                     descricao: $("#DescricaoImovel").val(),
                     numero: $("#NumeroImovel").val(),
                     complemento: $("#complemento").val(),
@@ -249,10 +284,10 @@
                     numero_cep: $("#CepImovel").val()
                 };
                 console.log(formData)
-                
+
                 const id = localStorage.getItem('userId');
                 const token = localStorage.getItem('userToken');
-                if(id){
+                if (id) {
                     $.ajax({
                         url: editar ? 'http://localhost:8080/api/v1/imoveis/atualizar/' + id_imovel : 'http://localhost:8080/api/v1/imoveis/cadastrar/' + id,
                         method: editar ? 'PUT' : 'POST',
@@ -262,19 +297,39 @@
                         headers: {
                             'Authorization': 'Bearer ' + localStorage.getItem('userToken')
                         },
-                        success: function (response,  textStatus, jqXHR) {
-                            if(!editar) var id_imovel_cad = jqXHR.getResponseHeader('Location').match(/\/(\d+)$/)[1];
+                        success: function (response, textStatus, jqXHR) {
+                            if (!editar) var id_imovel_cad = jqXHR.getResponseHeader('Location').match(/\/(\d+)$/)[1];
 
-                            $.each($("#container-comodos").find('input[type="number"]'), function(){
-                                if($(this).val() > 0 || $(this).val() != ''){
+                            $.each($("#container-comodos").find('input[type="number"]'), function () {
+                                if ($(this).val() > 0 || $(this).val() != '') {
                                     var obj = {
                                         "quantidade": $(this).val(),
                                         "comodo_id": $(this).attr('data-comodo')
                                     }
-                                    if(editar) var id_comodo_cad = $(this).data('status');
+
+                                    let idAtualizacao = null;
+                                    if (editar) {
+                                        switch (obj.comodo_id) {
+                                            case '1':
+                                                idAtualizacao = idBanheiro;
+                                                break;
+                                            case '2':
+                                                idAtualizacao = idQuarto;
+                                                break;
+                                            case '3':
+                                                idAtualizacao = idSala;
+                                                break;
+                                            case '4':
+                                                idAtualizacao = idCozinha;
+                                                break;
+                                            case '5':
+                                                idAtualizacao = idGaragem;
+                                                break;
+                                        }
+                                    }
 
                                     $.ajax({
-                                        url: editar ?  'http://localhost:8080/api/v1/comodos-imoveis/atualizar/' + id_comodo_cad : 'http://localhost:8080/api/v1/comodos-imoveis/cadastrar/'+id_imovel_cad,
+                                        url: editar ? 'http://localhost:8080/api/v1/comodos-imoveis/atualizar/' + idAtualizacao : 'http://localhost:8080/api/v1/comodos-imoveis/cadastrar/' + id_imovel_cad,
                                         method: editar ? 'PUT' : 'POST',
                                         data: JSON.stringify(obj),
                                         contentType: 'application/json',
@@ -288,23 +343,23 @@
                                         error: function (jqXHR, textStatus, errorThrown) {
                                             var responseError = JSON.parse(jqXHR.responseText);
                                             alert('Erro ao cadastrar: ' + responseError.mensagens);
-                                            console.log(responseError); 
+                                            console.log(responseError);
                                         }
                                     });
                                 }
                             });
 
                             alert(editar ? "Os dados do seu imóvel foram atualizados com sucesso!" : "Seu imóvel foi cadastrado com sucesso!");
-                            
+
                             //window.location.href = 'perfil.html';
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             var responseError = JSON.parse(jqXHR.responseText);
                             alert('Erro ao cadastrar: ' + responseError.mensagens);
-                            console.log(responseError); 
+                            console.log(responseError);
                         }
                     });
-                }             
+                }
             });
         });
     </script>
