@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet"/>
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
@@ -23,9 +23,34 @@
     
     <br>
 
-    <div class="col-md-10 col-md-offset-1">
+    <div class="col-md-12">
         <div class="form-group">
-            <input type="text" id="search-imoveis" class="form-control" placeholder="Pesquise por descrição..." />
+            <div class="col-xs-12 col-md-4">
+                <label class="control-label" for="search-imoveis">Pesquisa por descrição</label>
+                <input type="text" id="search-imoveis" class="form-control" placeholder="Digite..." />
+            </div>
+            <div class="col-xs-6 col-md-2">
+                <label class="control-label" for="uf">UF</label>
+                <select class="form-control" id="uf">
+                    <option value="0">Selecione</option>
+                </select>
+            </div>
+            <div class="col-xs-6 col-md-2">
+                <label class="control-label" for="municipio-select">Escolha um Município:</label>
+                <select id="municipio-select" class="form-control select2" data-live-search="true" data-width="100%">
+                </select>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <div class="col-xs-12 col-md-6">
+                    <label class="control-label" for="preco-inicial">De</label>
+                    <input type="number" class="form-control" id="preco-inicial">
+                </div>
+                    
+                <div class="col-xs-12 col-md-6">
+                    <label class="control-label" for="preco-final">Até</label>
+                    <input type="number" class="form-control" id="preco-final">
+                </div>
+            </div>
         </div>
     </div>
     
@@ -33,41 +58,7 @@
 
     <div class="mt-5 container">
         <div class="row">
-            <div class="col-md-2">
-                <h3>Filtros</h3>
-                <br />
-                <div class="form-group">
-                    <h6>Quartos</h6>
-                    <select class="form-control">
-                        <option>1 quarto</option>
-                        <option>2 quartos</option>
-                        <option>3 quartos</option>
-                        <option>4 quartos</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <h6>Banheiros</h6>
-                    <select class="form-control">
-                        <option>1 banheiro</option>
-                        <option>2 banheiros</option>
-                        <option>3 banheiros</option>
-                    </select>
-                </div>
-                <h6>Preço</h6>
-                <div class="form-group row">
-                    <div class="col-xs-6">
-                        <label class="control-label">De</label>
-                        <input type="number" class="form-control" id="preco-inicial">
-                    </div>
-                    <div class="col-xs-6">
-                        <label class="control-label">Até</label>
-                        <input type="number" class="form-control" id="preco-final">
-                    </div>
-                </div>
-                <button class="btn btn-back-green">Aplicar Filtros</button>
-            </div>
-
-            <div class="col-md-10">
+            <div class="col-xs-12">
                 <div class="row" id="box-imoveis">
                     <!-- CARDS -->
                 </div>
@@ -122,29 +113,84 @@
     <footer></footer>
 
     <script src="js/main.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script>
         $(document).ready(function () {
             const id = localStorage.getItem('userId');
             const token = localStorage.getItem('userToken');
-
             
+            
+            $('#municipio-select').select2({
+                placeholder: "Escolha um Município",
+                allowClear: true,
+                minimumInputLength: 3,  // Mínimo de 3 caracteres para buscar
+                language: {
+                    noResults: function () {
+                        return "Nenhum resultado encontrado";
+                    },
+                    inputTooShort: function (args) {
+                        return "Comece a digitar...";
+                    }
+                },
+                ajax: {
+                    url: function(params) {
+                        return `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${$('#uf').val()}/municipios`;
+                    },
+                    dataType: 'json',
+                    delay: 250, // Delay de 250ms entre as requisições
+                    processResults: function(data, params) {
+                        params.page = params.page || 1;
+                        return {
+                            results: data.filter(function(municipio) {
+                                return municipio.nome.toLowerCase().includes(params.term.toLowerCase());
+                            }).map(function(municipio) {
+                                return {
+                                    id: municipio.id,
+                                    text: municipio.nome
+                                };
+                            }),
+                            pagination: {
+                                more: (params.page * 30) < data.length
+                            }
+                        };
+                    },
+                    cache: true
+                }
+            });
+
+            $.ajax({
+                url: "https://servicodados.ibge.gov.br/api/v1/localidades/estados",
+                method: "GET",
+                contentType: "application/json",
+                dataType: "json",
+                success: function (response) {
+                    $.each(response, function(key, value){
+                        $('#uf').append('<option value="'+value.id+'">'+value.sigla+'</option>');
+                    });
+                }
+            });
+
+            $("#uf").change(function(){
+                $('#municipio-select').val(null).trigger('change');
+            });
+
             function renderImoveis(imoveis) {
                 $("#box-imoveis").empty();
                 var count_imoveis = 0;
                 $.each(imoveis, function (key, value) {
                     count_imoveis++;
                     var html = `
-                    <div class="col-xs-6 col-md-3 card-imovel" data-imovel='${JSON.stringify(value)}' style="margin-bottom: 100px;">
-                                    <div class="panel panel-default mx-2 mb-4">
+                    <div class="col-xs-6 col-md-2 card-imovel" data-imovel='${JSON.stringify(value)}' style="margin-bottom: 10px;">
+                                    <div class="panel panel-default mx-2" style="height: 100%;">
                                         <div class="panel-body">
                                             <img src="https://via.placeholder.com/300" class="img-responsive" alt="Imagem do Card">
                                             <br>
-                                            <p data-id-t="${value.id}" class="fw-600">${value.descricao}</p>
+                                            <p data-id-t="${value.id}" class="fw-600" style="height: 60px;">${value.descricao}</p>
                                             <p>${value.cep.cidade} - ${value.cep.uf}</p>
                                             <small>${value.tamanho} m²</small>
-                                        </div>
-                                        <div class="panel-footer d-flex">
+                                            <br><br>
                                             <p>${value.valor ? value.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : '-'}</p>
                                         </div>
                                     </div>
@@ -177,7 +223,6 @@
                     Authorization: "Bearer " + localStorage.getItem("userToken"),
                 },
                 success: function (response) {
-                    console.log(response.content)
                     imoveis = response.content;
                     renderImoveis(imoveis);
                 },
@@ -187,13 +232,29 @@
                 },
             });
 
-            // Filtro em tempo real
+            
             $("#search-imoveis").on("keyup", function () {
                 const searchTerm = $(this).val().toLowerCase();
                 const filteredImoveis = imoveis.filter((imovel) =>
                     imovel.descricao.toLowerCase().includes(searchTerm)
                 );
                 renderImoveis(filteredImoveis);
+            });
+
+            function applyPriceFilter() {
+                const precoInicial = parseFloat($("#preco-inicial").val()) || 0;
+                const precoFinal = parseFloat($("#preco-final").val()) || Infinity;
+
+                const filteredImoveis = imoveis.filter((imovel) => {
+                    const matchesPreco = imovel.valor >= precoInicial && imovel.valor <= precoFinal;
+                    return matchesPreco;
+                });
+
+                renderImoveis(filteredImoveis);
+            }
+
+            $("#btn-aplicar-filtros").click(function () {
+                applyPriceFilter();
             });
         });
 
