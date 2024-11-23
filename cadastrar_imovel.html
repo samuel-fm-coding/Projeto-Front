@@ -301,7 +301,7 @@
                             if (!editar) var id_imovel_cad = jqXHR.getResponseHeader('Location').match(/\/(\d+)$/)[1];
 
                             $.each($("#container-comodos").find('input[type="number"]'), function () {
-                                if ($(this).val() > 0 || $(this).val() != '') {
+                                
                                     var obj = {
                                         "quantidade": $(this).val(),
                                         "comodo_id": $(this).attr('data-comodo')
@@ -346,13 +346,12 @@
                                             console.log(responseError);
                                         }
                                     });
-                                }
+                                
                             });
 
                             alert(editar ? "Os dados do seu imóvel foram atualizados com sucesso!" : "Seu imóvel foi cadastrado com sucesso!");
-
-                            //window.location.href = 'perfil.html';
-                        },
+                            window.location.href = editar? 'perfil.html' : 'imoveis.html';
+                        }, 
                         error: function (jqXHR, textStatus, errorThrown) {
                             var responseError = JSON.parse(jqXHR.responseText);
                             alert('Erro ao cadastrar: ' + responseError.mensagens);
