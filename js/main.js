@@ -10,27 +10,27 @@ $(document).ready(function(){
 });
 
 function verificaLogin(){
-  const token = localStorage.getItem('userToken');
+  const token = sessionStorage.getItem('userToken');
   const anunciarPage = window.location.pathname.endsWith('cadastrar_imovel.html');
   const perfilPage = window.location.pathname.endsWith('perfil.html');
   if (!token && (anunciarPage || perfilPage)) {
     window.location.href = 'login.html';
-    localStorage.setItem('showLoginAlert', 'true');
+    sessionStorage.setItem('showLoginAlert', 'true');
   }
 }
 
 //EXIBIRÁ O ALERT AO CARREGAR PAGE DE LOGIN - EVITAR VISUALIZAÇÃO DE PAGINA RESTRITA
 if (window.location.pathname.endsWith('login.html')) {
-  const showAlert = localStorage.getItem('showLoginAlert');
+  const showAlert = sessionStorage.getItem('showLoginAlert');
   if (showAlert) {
       alert('Você não está logado, clique em OK para prosseguir ao login');
-      localStorage.removeItem('showLoginAlert');
+      sessionStorage.removeItem('showLoginAlert');
   }
 }
 
 function logout() {
-  localStorage.removeItem('userToken');
-  localStorage.removeItem('userId');
+  sessionStorage.removeItem('userToken');
+  sessionStorage.removeItem('userId');
 }
 
 function returnHeader() {
@@ -45,7 +45,7 @@ function returnHeader() {
               <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="/">
-              <img src="img/logo.jpg" class="img-responsive logo-header" alt="Logo">
+              <img src="img/logo.jpg" class="img-responsive logo-header" alt="Logo" style=" transform: scale(1.5);">
             </a>
           </div>
   
@@ -58,7 +58,7 @@ function returnHeader() {
   
             
     `;
-  if(!localStorage.getItem('userToken')){
+  if(!sessionStorage.getItem('userToken')){
     html += `<!-- Parte direita, sempre visível -->
         <ul class="nav navbar-nav navbar-right" style="margin-right: 10px;">
           <li><a href="cadastro.html" class="btn btn-back-green" id="btn-criar-conta">Criar conta</a></li>

@@ -201,7 +201,6 @@
 
             });
 
-
             //CARREGAR INFORMAÇOES DO IMOVEL CADASTRADO PARA EDITAR
             if (editar) {
                 $.ajax({
@@ -210,11 +209,9 @@
                     contentType: "application/json",
                     dataType: "json",
                     headers: {
-                        Authorization: "Bearer " + localStorage.getItem("userToken"),
+                        Authorization: "Bearer " + sessionStorage.getItem("userToken"),
                     },
                     success: function (response) {
-                        console.log(response)
-
                         $("#status-imovel").attr('data-status', response.status);
                         $("#DescricaoImovel").val(response.descricao);
 
@@ -256,8 +253,8 @@
                         $("#NumeroImovel").val(response.numero);
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
-                        var responseError = JSON.parse(jqXHR.responseText);
-                        alert("Erro ao carregar imóvel: " + responseError.mensagens);
+                        var response_erro = JSON.parse(jqXHR.responseText);
+                        alert('Erro ao carregar imóveis: ' + response_erro.mensagens[0]);
                     },
                 });
             }
@@ -283,10 +280,9 @@
                     tamanho: parseFloat($("#tamanho").val()),
                     numero_cep: $("#CepImovel").val()
                 };
-                console.log(formData)
 
-                const id = localStorage.getItem('userId');
-                const token = localStorage.getItem('userToken');
+                const id = sessionStorage.getItem('userId');
+                const token = sessionStorage.getItem('userToken');
                 if (id) {
                     $.ajax({
                         url: editar ? 'http://localhost:8080/api/v1/imoveis/atualizar/' + id_imovel : 'http://localhost:8080/api/v1/imoveis/cadastrar/' + id,
@@ -295,7 +291,7 @@
                         contentType: 'application/json',
                         dataType: 'text',
                         headers: {
-                            'Authorization': 'Bearer ' + localStorage.getItem('userToken')
+                            'Authorization': 'Bearer ' + sessionStorage.getItem('userToken')
                         },
                         success: function (response, textStatus, jqXHR) {
                             if (!editar) var id_imovel_cad = jqXHR.getResponseHeader('Location').match(/\/(\d+)$/)[1];
@@ -335,15 +331,14 @@
                                         contentType: 'application/json',
                                         dataType: 'text',
                                         headers: {
-                                            'Authorization': 'Bearer ' + localStorage.getItem('userToken')
+                                            'Authorization': 'Bearer ' + sessionStorage.getItem('userToken')
                                         },
                                         success: function (response) {
                                             console.log(editar ? 'Cômodos atualizados' : 'Comodos cadastrados')
                                         },
                                         error: function (jqXHR, textStatus, errorThrown) {
-                                            var responseError = JSON.parse(jqXHR.responseText);
-                                            alert('Erro ao cadastrar: ' + responseError.mensagens);
-                                            console.log(responseError);
+                                            var response_erro = JSON.parse(jqXHR.responseText);
+                                            alert('Erro ao '+ editar ? 'atualizar' : 'cadastrar' + ' cômodos: ' + response_erro.mensagens[0]);
                                         }
                                     });
                                 

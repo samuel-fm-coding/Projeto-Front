@@ -64,7 +64,7 @@
         $(document).ready(function() {
             var editar = getQueryVariable('editar');
             var url_ajax = 'http://localhost:8080/api/v1/usuarios/cadastrar';
-            const token = localStorage.getItem('userToken');
+            const token = sessionStorage.getItem('userToken');
             $("#cpfCadastro").mask('000.000.000-00');
             $("#telefoneCadastro").mask('(00) 00000-0000');
             
@@ -83,7 +83,7 @@
                         contentType: 'application/json',
                         dataType: 'json',
                         headers: {
-                            'Authorization': 'Bearer ' + localStorage.getItem('userToken')
+                            'Authorization': 'Bearer ' + sessionStorage.getItem('userToken')
                         },
                         success: function (response) {
                             console.log(response)
@@ -95,9 +95,8 @@
                             $("#btn-cadastrar").attr('data-id', response.id)
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
-                            var responseError = JSON.parse(jqXHR.responseText);
-                            alert('Erro ao consultar dados do usuário: ' + responseError.mensagens);
-                            console.log(responseError); 
+                            var response_erro = JSON.parse(jqXHR.responseText);
+                            alert('Erro ao consultar dados do usuário: ' + response_erro.mensagens[0]);
                         }
                     });
                 }
@@ -119,15 +118,15 @@
                     url: url_ajax, 
                     method: editar ? 'PUT' : 'POST',
                     headers: {
-                        'Authorization': 'Bearer ' + localStorage.getItem('userToken')
+                        'Authorization': 'Bearer ' + sessionStorage.getItem('userToken')
                     },
                     contentType: 'application/json',
                     dataType: 'json',
                     data: JSON.stringify(dataObject), 
                     success: function(response) {
                         if(!editar && response.token) {
-                            localStorage.setItem('userId', response.id);
-                            localStorage.setItem('userToken', response.token);
+                            sessionStorage.setItem('userId', response.id);
+                            sessionStorage.setItem('userToken', response.token);
 
                             window.location.href = 'imoveis.html';
                         } else if (editar && response.id) {
@@ -139,8 +138,8 @@
                         }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
-                        alert('Erro ao cadastrar: ' + errorThrown);
-                        console.log(jqXHR.responseText); 
+                        var response_erro = JSON.parse(jqXHR.responseText);
+                        alert('Erro ao cadastrar: ' + response_erro.mensagens[0]);
                     }
                 });
             });

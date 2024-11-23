@@ -85,8 +85,8 @@
                     data: JSON.stringify(dataObject), 
                     success: function(response) {
                         if(response.token) {
-                            localStorage.setItem('userId', response.id);
-                            localStorage.setItem('userToken', response.token);
+                            sessionStorage.setItem('userId', response.id);
+                            sessionStorage.setItem('userToken', response.token);
 
                             window.location.href = 'imoveis.html';
                         } else {
@@ -94,9 +94,8 @@
                         }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
-                        var responseError = JSON.parse(jqXHR.responseText);
-                        alert('Erro ao cadastrar: ' + responseError.mensagens);
-                        console.log(responseError);
+                        var response_erro = JSON.parse(jqXHR.responseText);
+                        alert('Erro ao fazer login: ' + response_erro.mensagens[0]);
                     }
                 });
             }
