@@ -160,16 +160,12 @@ h6 {
   color: #e4e8e2 !important;
 }
 
-.msg-erro{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid #d93f3fd6;
-  background-color: #d93f3fa3;
-  color: black;
-  width: 300px;
-  border-radius: 5px;
-  height: 40px;
+.border-red{
+  border: 1px solid red !important;
+}
+
+.modal-header, .modal-body, .modal-footer{
+  border: 0 !important;
 }
 
 .none{

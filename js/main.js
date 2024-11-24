@@ -102,6 +102,31 @@ function viaCEP(cep, callback) {
   });
 }
 
+function verificaObrigatorios(form){
+  var count_empty = 0;
+
+  $(form).find('input, textarea').each(function () {
+    if ($(this).val() == '' && $(this).hasClass('obrigatorio')) {
+        $(this).addClass('border-red');
+        count_empty++;
+    }
+    else{
+      $(this).removeClass('border-red');
+    }
+  }); 
+
+  if(count_empty > 0){
+    //TIME OUT PARA DESTACAR OS CAMPOS ANTES DE EXIBIR O ALERT
+    setTimeout(() => {
+      alert('Preencha todos os campos destacados');
+    }, "300");
+    return false;
+  }
+  else{
+    return true
+  }
+}
+
 function getQueryVariable(variable) {
   var query = window.location.search.substring(1);
   var vars = query.split("&");

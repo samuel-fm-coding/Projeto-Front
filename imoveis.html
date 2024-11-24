@@ -41,12 +41,12 @@
             <div class="col-xs-12 col-md-4">
                 <div class="col-xs-12 col-md-6">
                     <label class="control-label" for="preco-inicial">Valor inicial</label>
-                    <input type="number" class="form-control" id="preco-inicial">
+                    <input type="number" class="form-control" id="preco-inicial" min="0">
                 </div>
                     
                 <div class="col-xs-12 col-md-6">
                     <label class="control-label" for="preco-final">Valor final</label>
-                    <input type="number" class="form-control" id="preco-final">
+                    <input type="number" class="form-control" id="preco-final" min="0">
                 </div>
             </div>
         </div>
@@ -101,11 +101,11 @@
                     <div class="col-md-12 mt-5" style="font-size: 16px;">
                         <div class="d-flex"><p class="fw-600">Contato: </p><span class="ml-5" id="contato-imovel-modal"></span></div>
                     </div>
-                    <div class="text-center">
-                        <button type="button" class="btn btn-outline-lightgreen" data-dismiss="modal">
-                            Fechar
-                        </button>
-                    </div>
+                </div>
+                <div class="modal-footer center">
+                    <button type="button" class="btn btn-outline-lightgreen" data-dismiss="modal">
+                        Fechar
+                    </button>
                 </div>
             </div>
         </div>
@@ -175,7 +175,7 @@
                         return `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${$('#uf').val()}/municipios`;
                     },
                     dataType: 'json',
-                    delay: 250, // Delay de 250ms entre as requisições
+                    delay: 250, // Delay de 250ms para as requests
                     processResults: function(data, params) {
                         params.page = params.page || 1;
                         return {

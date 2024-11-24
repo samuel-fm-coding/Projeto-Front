@@ -55,15 +55,12 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title" id="imageModalLabel">Meus Imóveis</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
                 </div>
                 <div class="modal-body">
                     <div class="col-md-12" id="container-meus-imoveis"></div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                <div class="modal-footer center">
+                    <button type="button" class="btn btn-outline-lightgreen" data-dismiss="modal">
                         Fechar
                     </button>
                 </div>
@@ -131,74 +128,83 @@
                             'Authorization': 'Bearer ' + sessionStorage.getItem('userToken')
                         },
                         success: function (response) {
-
-                            var html = `
-                                <table class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 5%;">ID</th>
-                                            <th style="width: 30%;">Descrição</th>
-                                            <th style="width: 20%;">Endereço</th>
-                                            <th style="width: 15%;">Cidade</th>
-                                            <th style="width: 10%;">Preço</th>
-                                            <th style="width: 20%;">Ações</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                            `;
-
-                            $.each(response.content, function (key, value) {
-                                html += `
-                                    <tr>
-                                        <td>${value.id}</td>
-                                        <td>${value.descricao}</td>
-                                        <td>${value.cep.rua}  (${value.numero})</td>
-                                        <td>${value.cep.cidade} - ${value.cep.uf}</td>
-                                        <td>${value.valor ? value.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : '-'}</td>
-                                        <td>
-                                            <button class="btn btn-primary btn-sm btn-editar-imovel" data-id="${value.id}">Editar</button>
-                                            <button class="btn btn-danger btn-sm btn-excluir-imovel" data-id="${value.id}">Excluir</button>
-                                        </td>
-                                    </tr>
+                            if(response.content.length > 0){
+                                var html = `
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 5%;">ID</th>
+                                                <th style="width: 30%;">Descrição</th>
+                                                <th style="width: 20%;">Endereço</th>
+                                                <th style="width: 15%;">Cidade</th>
+                                                <th style="width: 10%;">Preço</th>
+                                                <th style="width: 20%;">Ações</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
                                 `;
-                            });
 
-                            html += `
-                                    </tbody>
-                                </table>
-                            `;
-                            $("#container-meus-imoveis").html(html);
+                                $.each(response.content, function (key, value) {
+                                    html += `
+                                        <tr>
+                                            <td>${value.id}</td>
+                                            <td>${value.descricao}</td>
+                                            <td>${value.cep.rua}  (${value.numero})</td>
+                                            <td>${value.cep.cidade} - ${value.cep.uf}</td>
+                                            <td>${value.valor ? value.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : '-'}</td>
+                                            <td>
+                                                <button class="btn btn-primary btn-sm btn-editar-imovel" data-id="${value.id}">Editar</button>
+                                                <button class="btn btn-danger btn-sm btn-excluir-imovel" data-id="${value.id}">Excluir</button>
+                                            </td>
+                                        </tr>
+                                    `;
+                                });
 
-                            $(".btn-editar-imovel").off('click').on('click', function () {
-                                var idImovel = $(this).data("id");
-                                window.location.href = `cadastrar_imovel.html?editar=1&id=${idImovel}`;
-                            });
+                                html += `
+                                        </tbody>
+                                    </table>
+                                `;
+                                $("#container-meus-imoveis").html(html);
 
-                            $(".btn-excluir-imovel").off('click').on('click', function () {
-                                var idImovel = $(this).data("id");
-                                if (confirm("Deseja realmente excluir este imóvel?")) {
-                                    $.ajax({
-                                        url: `http://localhost:8080/api/v1/imoveis/deletar/${idImovel}`,
-                                        method: "DELETE",
-                                        headers: {
-                                            'Authorization': 'Bearer ' + sessionStorage.getItem('userToken')
-                                        },
-                                        success: function () {
-                                            alert("Imóvel excluído com sucesso.");
-                                            $("#btn-meus-imoveis").trigger("click");
-                                        },
-                                        error: function (jqXHR) {
-                                            var response_erro = JSON.parse(jqXHR.responseText);
-                                            alert('Erro ao excluir imóvel: ' + response_erro.mensagens[0]);
-                                        }
-                                    });
-                                }
-                            });
+                                $(".btn-editar-imovel").off('click').on('click', function () {
+                                    var idImovel = $(this).data("id");
+                                    window.location.href = `cadastrar_imovel.html?editar=1&id=${idImovel}`;
+                                });
+
+                                $(".btn-excluir-imovel").off('click').on('click', function () {
+                                    var idImovel = $(this).data("id");
+                                    if (confirm("Deseja realmente excluir este imóvel?")) {
+                                        $.ajax({
+                                            url: `http://localhost:8080/api/v1/imoveis/deletar/${idImovel}`,
+                                            method: "DELETE",
+                                            headers: {
+                                                'Authorization': 'Bearer ' + sessionStorage.getItem('userToken')
+                                            },
+                                            success: function () {
+                                                alert("Imóvel excluído com sucesso.");
+                                                $("#btn-meus-imoveis").trigger("click");
+                                            },
+                                            error: function (jqXHR) {
+                                                var response_erro = JSON.parse(jqXHR.responseText);
+                                                alert('Erro ao excluir imóvel: ' + response_erro.mensagens[0]);
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                            else{
+                                $("#container-meus-imoveis").append(`
+                                    <div class="col-xs-12 text-center">
+                                        <p class="text-muted" style="font-size: 18px; margin-top: 20px;">
+                                            Você não possui imóveis cadastrados
+                                        </p>
+                                    </div>
+                                `);
+                            }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
-                            var responseError = JSON.parse(jqXHR.responseText);
-                            alert('Erro ao consultar dados do usuário: ' + responseError.mensagens);
-                            console.log(responseError); 
+                            var response_erro = JSON.parse(jqXHR.responseText);
+                            alert('Erro ao consultar dados dos imóveis: ' + response_erro.mensagens[0]);
                         }
                     });
                 }

@@ -17,17 +17,14 @@
     .carousel-control.left {
         left: -100px !important;
     }
-
     .carousel-control.right {
         right: -100px !important;
     }
-
     .carousel-control .icon-prev,
     .carousel-control .icon-next {
         background-color: #678a73;
         border-radius: 50%;
     }
-
     input[type=number]::-webkit-inner-spin-button,
     input[type=number]::-webkit-outer-spin-button {
         opacity: 1;
@@ -41,7 +38,7 @@
         <input type="hidden" id="status-imovel">
         <div class="col-md-10 col-md-offset-1 mt-2">
             <div class="text-center mb-4">
-                <h3>Cadastrar imóvel</h3>
+                <h3 id="titulo-page">Cadastrar imóvel</h3>
             </div>
             <form id="form-cadastrar-imovel">
                 <fieldset class="fieldset-gray-pd">
@@ -54,27 +51,27 @@
                     <div class="form-group row" id="container-comodos">
                         <div class="col-xs-12 col-md-4 col-lg-2">
                             <label for="BanheirosImovel">Banheiro(s)*:</label>
-                            <input type="number" class="form-control obrigatorio" id="BanheirosImovel"
+                            <input type="number" class="form-control" id="BanheirosImovel"
                                 name="BanheirosImovel" min="0" max="10" onkeydown="return false;" data-comodo="1">
                         </div>
                         <div class="col-xs-12 col-md-4 col-lg-2">
                             <label for="QuartosImovel">Quarto(s)*:</label>
-                            <input type="number" class="form-control obrigatorio" id="QuartosImovel"
+                            <input type="number" class="form-control" id="QuartosImovel"
                                 name="QuartosImovel" min="0" max="10" onkeydown="return false;" data-comodo="2">
                         </div>
                         <div class="col-xs-12 col-md-4 col-lg-2">
                             <label for="SalasImovel">Sala(s)*:</label>
-                            <input type="number" class="form-control obrigatorio" id="SalasImovel" name="SalasImovel"
+                            <input type="number" class="form-control" id="SalasImovel" name="SalasImovel"
                                 min="0" max="10" onkeydown="return false;" data-comodo="3">
                         </div>
                         <div class="col-xs-12 col-md-4 col-lg-2">
                             <label for="CozinhasImovel">Cozinha(s)*:</label>
-                            <input type="number" class="form-control obrigatorio" id="CozinhasImovel"
+                            <input type="number" class="form-control" id="CozinhasImovel"
                                 name="CozinhasImovel" min="0" max="10" onkeydown="return false;" data-comodo="4">
                         </div>
                         <div class="col-xs-12 col-md-4 col-lg-2">
                             <label for="GaragemImovel">Garagem(ns)*:</label>
-                            <input type="number" class="form-control obrigatorio" id="GaragemImovel"
+                            <input type="number" class="form-control" id="GaragemImovel"
                                 name="GaragemImovel" min="0" max="10" onkeydown="return false;" data-comodo="5">
                         </div>
                     </div>
@@ -135,7 +132,7 @@
                     <div class="form-group row">
                         <div class="col-xs-12 col-md-6">
                             <label for="complemento">Complemento:</label>
-                            <input type="text" class="form-control" id="complemento" name="complemento">
+                            <input type="text" class="form-control obrigatorio" id="complemento" name="complemento">
                         </div>
                         <div class="col-xs-12 col-md-4">
                             <label for="NumeroImovel">Número*:</label>
@@ -157,7 +154,6 @@
     <script>
         var editar = getQueryVariable('editar');
         var id_imovel = getQueryVariable('id');
-
         let idBanheiro = null;
         let idQuarto = null;
         let idSala = null;
@@ -201,8 +197,12 @@
 
             });
 
-            //CARREGAR INFORMAÇOES DO IMOVEL CADASTRADO PARA EDITAR
+            
             if (editar) {
+                $("#titulo-page").text('Atualizar imóvel');
+                $("#btn-cadastrar").text('Atualizar');
+
+                //CARREGAR INFORMAÇOES DO IMÓVEL CADASTRADO PARA EDITAR
                 $.ajax({
                     url: "http://localhost:8080/api/v1/imoveis/buscar/" + id_imovel,
                     method: "GET",
@@ -262,14 +262,10 @@
             $("#form-cadastrar-imovel").on('submit', function (e) {
                 e.preventDefault();
                 verificaLogin();
-                var count_empty = 0;
 
-                $(this).find('input, textarea').each(function () {
-                    if ($(this).val() == '' && $(this).hasClass('obrigatorio')) {
-                        $(this).css('border', '1px solid red');
-                        count_empty++;
-                    }
-                });
+                if(!verificaObrigatorios($(this))){
+                    return false
+                }
 
                 const formData = {
                     status: editar ? $("#status-imovel").data('status') : 0,
